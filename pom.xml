@@ -78,6 +78,11 @@
 			<artifactId>minio</artifactId>
 			<version>8.5.5</version>
 		</dependency>
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.21.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>
