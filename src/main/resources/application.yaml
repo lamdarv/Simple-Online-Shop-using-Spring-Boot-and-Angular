@@ -1,0 +1,43 @@
+#Application
+spring:
+  application:
+    name: Simple Online Shop
+  profiles:
+    active:
+      - "@spring.profiles.active@"
+  main:
+    lazy-initialization: false
+  datasource:
+    url: jdbc:mysql://localhost:3306/simple-online-shop
+    username: root
+    password: 
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+    show-sql: true
+
+  messages:
+    encoding: UTF-8
+    basename: i18n/messages
+  output:
+    ansi:
+      enabled: always
+server:
+  port: 8081
+
+
+# Logging
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
