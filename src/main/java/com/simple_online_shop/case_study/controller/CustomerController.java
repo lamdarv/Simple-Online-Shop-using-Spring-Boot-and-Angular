@@ -39,18 +39,18 @@ public class CustomerController {
         return ResponseEntity.ok(response);
     }
 
-    private CustomerDTO createCustomerDTO(String customerName, String customerAddress, String customerCode, String customerPhone, Boolean isActive, String lastOrderDate) {
-        CustomerDTO customerDTO = new CustomerDTO();
-        customerDTO.setCustomerName(customerName);
-        customerDTO.setCustomerAddress(customerAddress);
-        customerDTO.setCustomerCode(customerCode);
-        customerDTO.setCustomerPhone(customerPhone);
-        customerDTO.setIsActive(isActive);
-        if (lastOrderDate != null) {
-            customerDTO.setLastOrderDate(LocalDateTime.parse(lastOrderDate));
-        }
-        return customerDTO;
-    }
+//    private CustomerDTO createCustomerDTO(String customerName, String customerAddress, String customerCode, String customerPhone, Boolean isActive, String lastOrderDate) {
+//        CustomerDTO customerDTO = new CustomerDTO();
+//        customerDTO.setCustomerName(customerName);
+//        customerDTO.setCustomerAddress(customerAddress);
+//        customerDTO.setCustomerCode(customerCode);
+//        customerDTO.setCustomerPhone(customerPhone);
+//        customerDTO.setIsActive(isActive);
+//        if (lastOrderDate != null) {
+//            customerDTO.setLastOrderDate(LocalDateTime.parse(lastOrderDate));
+//        }
+//        return customerDTO;
+//    }
 
     @PutMapping("/{customerId}")
     public ResponseEntity<CustomerDTO> updateCustomer(
