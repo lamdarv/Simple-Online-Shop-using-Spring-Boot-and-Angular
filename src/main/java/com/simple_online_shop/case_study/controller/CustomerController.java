@@ -1,18 +1,16 @@
 package com.simple_online_shop.case_study.controller;
 
+import com.simple_online_shop.case_study.dto.CommonResponseDTO;
 import com.simple_online_shop.case_study.dto.CustomerDTO;
 import com.simple_online_shop.case_study.exception.CustomerDeletionException;
 import com.simple_online_shop.case_study.exception.ResourceNotFoundException;
 import com.simple_online_shop.case_study.service.CustomerService;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -26,7 +24,7 @@ public class CustomerController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<CustomerDTO> createCustomer(
+    public ResponseEntity<CommonResponseDTO<CustomerDTO>> createCustomer(
             @RequestParam(value = "file", required = false) MultipartFile file,
             @RequestParam("customerName") String customerName,
             @RequestParam("customerAddress") String customerAddress,
@@ -35,25 +33,23 @@ public class CustomerController {
             @RequestParam("isActive") Boolean isActive,
             @RequestParam(value = "lastOrderDate", required = false) String lastOrderDate) {
 
-        CustomerDTO response = customerService.createCustomer(file, customerName, customerAddress, customerCode, customerPhone, isActive, lastOrderDate);
-        return ResponseEntity.ok(response);
+        try {
+            CustomerDTO customerDTO = customerService.createCustomer(file, customerName,
+                    customerAddress, customerCode, customerPhone, isActive, lastOrderDate);
+            CommonResponseDTO<CustomerDTO> response = new CommonResponseDTO<>("Item created successfully", customerDTO);
+            return ResponseEntity.ok(response);
+        } catch (ResourceNotFoundException e) {
+            CommonResponseDTO<CustomerDTO> response = new CommonResponseDTO<>(e.getMessage(), null);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            CommonResponseDTO<CustomerDTO> response = new CommonResponseDTO<>("An error occurred while creating the customer.", null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+
     }
 
-//    private CustomerDTO createCustomerDTO(String customerName, String customerAddress, String customerCode, String customerPhone, Boolean isActive, String lastOrderDate) {
-//        CustomerDTO customerDTO = new CustomerDTO();
-//        customerDTO.setCustomerName(customerName);
-//        customerDTO.setCustomerAddress(customerAddress);
-//        customerDTO.setCustomerCode(customerCode);
-//        customerDTO.setCustomerPhone(customerPhone);
-//        customerDTO.setIsActive(isActive);
-//        if (lastOrderDate != null) {
-//            customerDTO.setLastOrderDate(LocalDateTime.parse(lastOrderDate));
-//        }
-//        return customerDTO;
-//    }
-
     @PutMapping("/{customerId}")
-    public ResponseEntity<CustomerDTO> updateCustomer(
+    public ResponseEntity<CommonResponseDTO<CustomerDTO>> updateCustomer(
             @PathVariable Integer customerId,
             @RequestParam(value = "file", required = false) MultipartFile file,
             @RequestParam(value = "customerName", required = false) String customerName,
@@ -63,20 +59,49 @@ public class CustomerController {
             @RequestParam(value = "isActive", required = false) Boolean isActive,
             @RequestParam(value = "lastOrderDate", required = false) String lastOrderDate) {
 
-        CustomerDTO response = customerService.updateCustomer(customerId, file, customerName, customerAddress, customerCode, customerPhone, isActive, lastOrderDate);
-        return ResponseEntity.ok(response);
+        try {
+            CustomerDTO customerDTO = customerService.updateCustomer(customerId, file, customerName,
+                    customerAddress, customerCode, customerPhone, isActive, lastOrderDate);
+            CommonResponseDTO<CustomerDTO> response = new CommonResponseDTO<>("Item updating successfully", customerDTO);
+            return ResponseEntity.ok(response);
+        } catch (ResourceNotFoundException e) {
+            CommonResponseDTO<CustomerDTO> response = new CommonResponseDTO<>(e.getMessage(), null);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            CommonResponseDTO<CustomerDTO> response = new CommonResponseDTO<>("An error occurred while creating the customer.", null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
     }
 
     @GetMapping
-    public ResponseEntity<List<CustomerDTO>> getAllCustomers() {
-        List<CustomerDTO> customers = customerService.getAllCustomers();
-        return ResponseEntity.ok(customers);
+    public ResponseEntity<CommonResponseDTO<List<CustomerDTO>>> getAllCustomers() {
+        try {
+            List<CustomerDTO> customerDTOList = customerService.getAllCustomers();
+            CommonResponseDTO<List<CustomerDTO>> response = new CommonResponseDTO<>("Customers fetched successfully", customerDTOList);
+            return ResponseEntity.ok(response);
+        } catch (ResourceNotFoundException e) {
+            CommonResponseDTO<List<CustomerDTO>> response = new CommonResponseDTO<>(e.getMessage(), null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        } catch (Exception e) {
+            CommonResponseDTO<List<CustomerDTO>> response = new CommonResponseDTO<>("An error occurred while fetching customers.", null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+
     }
 
     @GetMapping("/{customerId}")
-    public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable Integer customerId) {
-        CustomerDTO customerDTO = customerService.getCustomerById(customerId);
-        return ResponseEntity.ok(customerDTO);
+    public ResponseEntity<CommonResponseDTO<CustomerDTO>> getCustomerById(@PathVariable Integer customerId) {
+        try {
+            CustomerDTO customerDTO = customerService.getCustomerById(customerId);
+            CommonResponseDTO<CustomerDTO> response = new CommonResponseDTO<>("Customer fetched successfully", customerDTO);
+            return ResponseEntity.ok(response);
+        } catch (ResourceNotFoundException e) {
+            CommonResponseDTO<CustomerDTO> response = new CommonResponseDTO<>(e.getMessage(), null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        } catch (Exception e) {
+            CommonResponseDTO<CustomerDTO> response = new CommonResponseDTO<>("An error occurred while fetching the customer.", null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
     }
 
     @DeleteMapping("/{customerId}")
@@ -90,4 +115,5 @@ public class CustomerController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
+
 }
