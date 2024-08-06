@@ -48,21 +48,34 @@ public class MinioSrvc {
     return bMsg(bucket) + " of file " + filename;
   }
 
+  private void ensureBucketExists(String bucket) {
+    try {
+      boolean found = minio.bucketExists(BucketExistsArgs.builder().bucket(bucket).build());
+      if (!found) {
+        minio.makeBucket(MakeBucketArgs.builder().bucket(bucket).build());
+      }
+    } catch (Exception e) {
+      log.error("Error checking or creating bucket " + bucket, e);
+      throw new RuntimeException("Error checking or creating bucket " + bucket, e);
+    }
+  }
+
   public String getLink(String bucket, String filename, Long expiry) {
+    ensureBucketExists(bucket);
     try {
       return minio.getPresignedObjectUrl(
-          GetPresignedObjectUrlArgs.builder()
-              .method(Method.GET)
-              .bucket(bucket)
-              .object(filename)
-              .expiry(Math.toIntExact(expiry), TimeUnit.SECONDS)
-              .build());
+              GetPresignedObjectUrlArgs.builder()
+                      .method(Method.GET)
+                      .bucket(bucket)
+                      .object(filename)
+                      .expiry(Math.toIntExact(expiry), TimeUnit.SECONDS)
+                      .build());
     } catch (InvalidKeyException | ErrorResponseException | InsufficientDataException | InternalException
-        | InvalidResponseException | NoSuchAlgorithmException | XmlParserException | ServerException
-        | IllegalArgumentException | IOException e) {
+             | InvalidResponseException | NoSuchAlgorithmException | XmlParserException | ServerException
+             | IllegalArgumentException | IOException e) {
       log.error(message.get(prop.getGetErrorMessage(), bfMsg(bucket, filename)) + ": " + e.getLocalizedMessage(), e);
       throw new MinioServiceDownloadException(
-          message.get(prop.getGetErrorMessage(), bfMsg(bucket, filename)), e);
+              message.get(prop.getGetErrorMessage(), bfMsg(bucket, filename)), e);
     }
   }
 
@@ -86,19 +99,20 @@ public class MinioSrvc {
   }
 
   public List<Object> getList(String bucket) {
+    ensureBucketExists(bucket);
     List<Result<Item>> results = new ArrayList<>();
     minio.listObjects(
-        ListObjectsArgs.builder()
-            .bucket(bucket)
-            .recursive(true)
-            .build())
-        .forEach(results::add);
+                    ListObjectsArgs.builder()
+                            .bucket(bucket)
+                            .recursive(true)
+                            .build())
+            .forEach(results::add);
     return results.stream().map(t -> {
       try {
         return new ListItem(t.get());
       } catch (InvalidKeyException | ErrorResponseException | IllegalArgumentException | InsufficientDataException
-          | InternalException | InvalidResponseException | NoSuchAlgorithmException | ServerException
-          | XmlParserException | IOException e) {
+               | InternalException | InvalidResponseException | NoSuchAlgorithmException | ServerException
+               | XmlParserException | IOException e) {
         log.error(message.get(prop.getGetErrorMessage(), bMsg(bucket)) + ": " + e.getLocalizedMessage(), e);
         return null;
       }
@@ -106,12 +120,13 @@ public class MinioSrvc {
   }
 
   public void view(HttpServletResponse response, String bucket, String filename, Long expiry) {
+    ensureBucketExists(bucket);
     try {
       response.sendRedirect(this.getLink(bucket, filename, expiry));
     } catch (IOException e) {
       log.error(message.get(prop.getGetErrorMessage(), bfMsg(bucket, filename)) + ": " + e.getLocalizedMessage(), e);
       throw new MinioServiceDownloadException(
-          message.get(prop.getGetErrorMessage(), bfMsg(bucket, filename)), e);
+              message.get(prop.getGetErrorMessage(), bfMsg(bucket, filename)), e);
     }
   }
 
@@ -126,60 +141,63 @@ public class MinioSrvc {
   }
 
   public ObjectWriteResponse upload(MultipartFile file, String bucket, Function<MultipartFile, UploadOption> modifier) {
+    ensureBucketExists(bucket);
     UploadOption opt = modifier.apply(file);
     try {
       return minio.putObject(
-          PutObjectArgs.builder()
-              .bucket(bucket)
-              .object(opt.filename)
-              .stream(file.getInputStream(), file.getSize(), -1)
-              .contentType(file.getContentType())
-              .build());
+              PutObjectArgs.builder()
+                      .bucket(bucket)
+                      .object(opt.filename)
+                      .stream(file.getInputStream(), file.getSize(), -1)
+                      .contentType(file.getContentType())
+                      .build());
     } catch (InvalidKeyException | ErrorResponseException | InsufficientDataException | InternalException
-        | InvalidResponseException | NoSuchAlgorithmException | ServerException | XmlParserException
-        | IllegalArgumentException | IOException e) {
+             | InvalidResponseException | NoSuchAlgorithmException | ServerException | XmlParserException
+             | IllegalArgumentException | IOException e) {
       log.error(message.get(prop.getPostErrorMessage(), bfMsg(bucket, opt.filename)) + ": " + e.getLocalizedMessage(),
-          e);
+              e);
       throw new MinioServiceUploadException(
-          message.get(prop.getPostErrorMessage(), bucket, opt.filename), e);
+              message.get(prop.getPostErrorMessage(), bucket, opt.filename), e);
     }
   }
 
   public ObjectWriteResponse upload(MultipartFile file, String bucket) {
     return this.upload(file, bucket,
-        o -> UploadOption.builder()
-            .filename(System.currentTimeMillis() + "_-_"
-                + o.getOriginalFilename().replace(" ", "_"))
-            .build());
+            o -> UploadOption.builder()
+                    .filename(System.currentTimeMillis() + "_-_"
+                            + o.getOriginalFilename().replace(" ", "_"))
+                    .build());
   }
 
   // ---
 
   public ObjectWriteResponse upload(InputStream file, String filename, String bucket) {
+    ensureBucketExists(bucket);
     try {
       return minio.putObject(
-          PutObjectArgs.builder()
-              .bucket(bucket)
-              .object(filename)
-              .stream(file, file.available(), -1)
-              .build());
+              PutObjectArgs.builder()
+                      .bucket(bucket)
+                      .object(filename)
+                      .stream(file, file.available(), -1)
+                      .build());
     } catch (InvalidKeyException | ErrorResponseException | InsufficientDataException | InternalException
-        | InvalidResponseException | NoSuchAlgorithmException | ServerException | XmlParserException
-        | IllegalArgumentException | IOException e) {
+             | InvalidResponseException | NoSuchAlgorithmException | ServerException | XmlParserException
+             | IllegalArgumentException | IOException e) {
       log.error(message.get(prop.getPostErrorMessage(), bfMsg(bucket, filename)) + ": " + e.getLocalizedMessage(),
-          e);
+              e);
       throw new MinioServiceUploadException(
-          message.get(prop.getPostErrorMessage(), bucket, filename), e);
+              message.get(prop.getPostErrorMessage(), bucket, filename), e);
     }
   }
 
   public InputStream read(String filename, String bucket) throws InvalidKeyException, ErrorResponseException,
-      InsufficientDataException, InternalException, InvalidResponseException, NoSuchAlgorithmException, ServerException,
-      XmlParserException, IllegalArgumentException, IOException {
+          InsufficientDataException, InternalException, InvalidResponseException, NoSuchAlgorithmException, ServerException,
+          XmlParserException, IllegalArgumentException, IOException {
+    ensureBucketExists(bucket);
     return minio.getObject(GetObjectArgs.builder()
-        .bucket(bucket)
-        .object(filename)
-        .build());
+            .bucket(bucket)
+            .object(filename)
+            .build());
   }
 
 }
