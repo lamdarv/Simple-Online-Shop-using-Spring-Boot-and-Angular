@@ -35,6 +35,9 @@ public class ItemController {
             ItemDTO itemDTO = itemService.createItem(itemsName, itemsCode, stock, price, isAvailable, lastReStock);
             CommonResponseDTO<ItemDTO> response = new CommonResponseDTO<>("Item created successfully", itemDTO);
             return ResponseEntity.ok(response);
+        } catch (ResourceNotFoundException e) {
+            CommonResponseDTO<ItemDTO> response = new CommonResponseDTO<>(e.getMessage(), null);
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             CommonResponseDTO<ItemDTO> response = new CommonResponseDTO<>("An error occurred while creating the item.", null);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
