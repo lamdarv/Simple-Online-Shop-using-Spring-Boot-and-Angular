@@ -8,6 +8,8 @@ import java.time.temporal.ChronoUnit;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.simple_online_shop.case_study.dto.OrderDTO;
+import com.simple_online_shop.case_study.model.Order;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,28 +43,17 @@ public class ApplicationConfig {
 
     private final MessageUtil msg;
 
-//    @Bean
-//    public ApplicationRunner init(SampleRepository sampleRepo) {
-//        return args -> {
-//            log.info(msg.get("application.init"));
-//
-//            if (sampleRepo.count() <= 0) {
-//                for (int i = 0; i < 100; i++) {
-//                    sampleRepo.save(SampleModel.builder()
-//                            .code(String.format("%08d", i) + DigestUtils.sha256Hex(String.valueOf(i)).substring(0, 24))
-//                            .description("Blabla")
-//                            .date(LocalDateTime.now().minus(i, ChronoUnit.DAYS))
-//                            .build());
-//                }
-//            }
-//
-//            log.info(msg.get("application.done"));
-//        };
-//    }
-
     @Bean
     public ModelMapper modelMapper() {
-        return new ModelMapper();
+        ModelMapper modelMapper = new ModelMapper();
+
+        // Custom mapping for Order to OrderDTO
+        modelMapper.typeMap(Order.class, OrderDTO.class).addMappings(mapper -> {
+            mapper.map(src -> src.getItem().getItemsId(), OrderDTO::setItemsId);
+            mapper.map(src -> src.getCustomer().getCustomerId(), OrderDTO::setCustomerId);
+        });
+
+        return modelMapper;
     }
 
     @Bean
@@ -121,5 +112,7 @@ public class ApplicationConfig {
                             objectMapper.registerModule(localDateTimeModule);
                         });
     }
+
+
 
 }
