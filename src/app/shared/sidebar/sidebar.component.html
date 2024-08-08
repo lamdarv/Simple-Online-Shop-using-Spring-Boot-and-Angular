@@ -1,10 +1,28 @@
-<div class="appName">
-    Simple Online Shop
-</div>
-<nav>
-    <ul>
-        <li><a routerLink="/customer">Customer</a></li>
-        <li><a routerLink="/item">Item</a></li>
-        <li><a routerLink="/order">Order</a></li>
-    </ul>
-</nav>
+<div class="sidebar-container">
+    <div class="logo-container">
+      <img src="assets/logoApp.png" alt="Simple Online Shop Logo" class="logo">
+      <button mat-icon-button class="menu-toggle" (click)="toggleMenu()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+    <nav [class.open]="isMenuOpen">
+      <ul>
+        <li>
+          <button mat-button routerLink="/customer">
+            <mat-icon>person</mat-icon> Customer
+          </button>
+        </li>
+        <li>
+          <button mat-button routerLink="/item">
+            <mat-icon>inventory</mat-icon> Item
+          </button>
+        </li>
+        <li>
+          <button mat-button routerLink="/order">
+            <mat-icon>shopping_cart</mat-icon> Order
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  

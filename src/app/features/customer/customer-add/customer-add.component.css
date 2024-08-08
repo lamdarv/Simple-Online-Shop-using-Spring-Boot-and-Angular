@@ -1,0 +1,72 @@
+* {
+  overflow-y: hidden;
+}
+
+.content {
+  margin: 20px;
+  overflow-y: hidden;
+}
+
+h6 {
+  margin: 5px;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.dialog-content {
+  max-height: 700px;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  margin: 20px;
+}
+
+mat-form-field {
+  display: block;
+  margin-bottom: 16px;
+}
+
+mat-checkbox {
+  margin-bottom: 16px;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  margin: 4px;
+  padding: 4px;
+}
+
+.file-upload {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.file-upload-label {
+  display: block;
+  background-color: #1976d2;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.file-upload-label:hover {
+  background-color: #1565c0;
+}
+
+.file-upload-input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+

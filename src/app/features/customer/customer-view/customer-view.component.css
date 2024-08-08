@@ -1,0 +1,53 @@
+.customer-view {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+
+mat-card {
+  width: 100%;
+  padding: 20px;
+}
+
+.customer-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.col {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.col:last-child {
+  margin-right: 0;
+}
+
+mat-card-title {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media (max-width: 440px) {
+  .row {
+    flex-direction: column; 
+  }
+  .col {
+    margin-right: 0; 
+    margin-bottom: 16px; 
+  }
+  .col:last-child {
+    margin-bottom: 0; 
+  }
+}

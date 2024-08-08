@@ -1,1 +1,44 @@
-<p>customer-view works!</p>
+<div *ngIf="customer" class="customer-view">
+  <mat-card>
+    <mat-card-title>Customer Details</mat-card-title>
+    <mat-card-content>
+      <div class="customer-details">
+        <div class="row">
+          <div class="col">
+            <p><strong>ID:</strong> {{ customer.customerId }}</p>
+          </div>
+          <div class="col">
+            <p><strong>Address:</strong> {{ customer.customerAddress }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p><strong>Name:</strong> {{ customer.customerName }}</p>
+          </div>
+          <div class="col">
+            <p><strong>Code:</strong> {{ customer.customerCode }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p><strong>Phone Number:</strong> {{ customer.customerPhone }}</p>
+          </div>
+          <div class="col">
+            <p><strong>Last Order Date:</strong> {{ customer.lastOrderDate | customDate }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p><strong>Is Active:</strong> {{ customer.isActive }}</p>
+          </div>
+          <div class="col">
+            <p><strong>PIC:</strong> {{ customer.pic }}</p>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="goBack()">Back</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

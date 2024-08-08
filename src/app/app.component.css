@@ -1,16 +1,23 @@
-.container {
-    display: flex;
-    height: 100vh;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-app-sidebar {
-    width: 150px;
-    background-color: #f8f9fa;
-    padding: 15px;
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .content {
-    flex: 1;
-    padding: 20px;
-    background-color: #ffffff;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #ffffff;
+  overflow-y: auto;
+  margin: 0;
+  width: auto !important; /* Ubah ini */
 }

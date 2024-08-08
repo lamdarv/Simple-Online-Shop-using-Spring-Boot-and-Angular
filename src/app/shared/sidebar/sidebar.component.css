@@ -1,22 +1,101 @@
+.sidebar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #f8f9fa;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 50px; /* Adjust this size as needed */
+  margin-right: 10px;
+}
+
+.appName {
+  font-size: 20px;
+  font-weight: bold;
+  color: #007bff;
+}
+
 nav {
+  display: flex;
+  align-items: center;
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  margin-left: 20px;
+}
+
+button {
+  font-size: 16px;
+  color: #007bff;
+  display: flex;
+  align-items: center;
+}
+
+button mat-icon {
+  margin-right: 5px;
+}
+
+button:hover {
+  background-color: #e0f7fa;
+}
+
+.menu-toggle {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .menu-toggle {
+    display: block;
+    margin-left: auto; /* Add this line to push the toggle button to the right */
+  }
+
+  nav {
+    display: none;
+  }
+
+  nav.open {
+    display: block;
     width: 100%;
   }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
+
+  .sidebar-container {
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  li {
-    margin: 10px 0;
+
+  .logo-container {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between; /* Add this line to space out the logo and toggle button */
   }
-  
-  a {
-    text-decoration: none;
-    color: #007bff;
+
+  nav ul {
+    flex-direction: column;
+    width: 100%;
   }
-  
-  a:hover {
-    text-decoration: underline;
+
+  nav li {
+    width: 100%;
+    margin-left: 0;
   }
-  
+
+  nav button {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}

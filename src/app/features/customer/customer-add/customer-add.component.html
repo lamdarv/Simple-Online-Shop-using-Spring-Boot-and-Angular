@@ -1,1 +1,32 @@
-<p>customer-add works!</p>
+<div class="content">
+    <h6 mat-dialog-title>Add New Customer</h6>
+    <div mat-dialog-content class="dialog-content">
+        <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="fill">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="customerName">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Address</mat-label>
+                <input matInput formControlName="customerAddress">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Code</mat-label>
+                <input matInput formControlName="customerCode">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Phone Number</mat-label>
+                <input matInput formControlName="customerPhone">
+            </mat-form-field>
+            <mat-checkbox formControlName="isActive">Is Active</mat-checkbox>
+            <div class="file-upload">
+                <label for="file" class="file-upload-label">Upload Image</label>
+                <input id="file" type="file" class="file-upload-input" (change)="onFileSelected($event)">
+            </div>
+        </form>
+    </div>
+    <div mat-dialog-actions class="dialog-actions">
+        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-raised-button color="primary" (click)="onSubmit()">Add</button>
+    </div>
+</div>
