@@ -31,6 +31,15 @@ public class ItemController {
             @RequestParam("isAvailable") Boolean isAvailable,
             @RequestParam(value = "lastReStock", required = false) String lastReStock) {
 
+        // Log data yang diterima
+        System.out.println("Received Data: ");
+        System.out.println("itemsName: " + itemsName);
+        System.out.println("itemsCode: " + itemsCode);
+        System.out.println("stock: " + stock);
+        System.out.println("price: " + price);
+        System.out.println("isAvailable: " + isAvailable);
+        System.out.println("lastReStock: " + lastReStock);
+
         try {
             ItemDTO itemDTO = itemService.createItem(itemsName, itemsCode, stock, price, isAvailable, lastReStock);
             CommonResponseDTO<ItemDTO> response = new CommonResponseDTO<>("Item created successfully", itemDTO);
@@ -39,10 +48,13 @@ public class ItemController {
             CommonResponseDTO<ItemDTO> response = new CommonResponseDTO<>(e.getMessage(), null);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
+            // Log exception untuk memudahkan debugging
+            e.printStackTrace();
             CommonResponseDTO<ItemDTO> response = new CommonResponseDTO<>("An error occurred while creating the item.", null);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
+
 
     @PutMapping("/{itemsId}")
     public ResponseEntity<CommonResponseDTO<ItemDTO>> updateItem(

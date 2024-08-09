@@ -16,7 +16,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -79,8 +83,18 @@ public class ItemService {
         itemDTO.setStock(stock);
         itemDTO.setPrice(price);
         itemDTO.setIsAvailable(isAvailable);
-        if (lastReStock != null) {
-            itemDTO.setLastReStock(LocalDateTime.parse(lastReStock));
+        try {
+            if (lastReStock != null) {
+                // Parse the full ISO date with timezone
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+                ZonedDateTime zonedDateTime = ZonedDateTime.parse(lastReStock, formatter);
+
+                // Convert to LocalDateTime
+                itemDTO.setLastReStock(zonedDateTime.toLocalDateTime());
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println("Error parsing date: " + e.getMessage());
+            throw new RuntimeException("Invalid date format", e);
         }
         return itemDTO;
     }
