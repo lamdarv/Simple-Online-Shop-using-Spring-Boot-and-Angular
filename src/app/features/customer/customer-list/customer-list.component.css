@@ -78,7 +78,7 @@ mat-card-title {
   }
 
   .mat-cell {
-    display: block; /* Stack the cells vertically */
+    display: block; 
   }
 
   .mat-cell:not(:last-child) {
@@ -95,21 +95,17 @@ mat-card-title {
 @media (max-width: 450px) {
   ::ng-deep .mat-mdc-paginator-range-actions {
     display: flex;
-    justify-content: flex-end; /* Mengatur item pagination agar di awal */
+    justify-content: flex-end; 
     align-items: center;
-    flex-wrap: wrap; /* Membuat elemen di dalamnya bisa membungkus */
+    flex-wrap: wrap; 
   }
   
   ::ng-deep .mat-mdc-paginator-range-label {
-    order: 1; /* Mengatur urutan elemen */
+    order: 1; 
     margin: 0! important; 
     margin-right: 12px !important;
-    width: 100%; /* Mengisi lebar penuh */
-    text-align: right; /* Mengatur teks agar rata kanan */
-    /* margin-top: 8px;  */
+    width: 100%; 
+    text-align: right; 
   }
-  
-  
-  
-  
+
 }

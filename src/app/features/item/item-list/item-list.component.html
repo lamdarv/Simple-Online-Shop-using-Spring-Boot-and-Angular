@@ -1,1 +1,76 @@
-<p>halaman list item</p>
+<div class="item-list">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Item List</mat-card-title>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" (click)="openCreateItemDialog()">Create Item</button>
+            </mat-card-actions>
+        </mat-card-header>
+        <mat-card-content>
+            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 responsive-table tableItem">
+                <!-- ID Column -->
+                <ng-container matColumnDef="itemsId">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                    <td mat-cell *matCellDef="let item" fix-text> {{item.itemsId}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="itemsName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                    <td mat-cell *matCellDef="let item"> {{item.itemsName}} </td>
+                </ng-container>
+
+                <!-- Code Column -->
+                <ng-container matColumnDef="itemsCode">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
+                    <td mat-cell *matCellDef="let item"> {{item.itemsCode}} </td>
+                </ng-container>
+
+                <!-- Stock Column -->
+                <ng-container matColumnDef="stock">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock </th>
+                    <td mat-cell *matCellDef="let item"> {{item.stock}} </td>
+                </ng-container>
+
+                <!-- Price Column -->
+                <ng-container matColumnDef="price">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+                    <td mat-cell *matCellDef="let item">IDR {{item.price}} </td>
+                </ng-container>
+
+                <!-- Is Available Column -->
+                <ng-container matColumnDef="isAvailable">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Is Available </th>
+                    <td mat-cell *matCellDef="let item"> {{item.isAvailable}} </td>
+                </ng-container>
+
+                <!-- Last Restock Date Column -->
+                <ng-container matColumnDef="lastReStock">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Restock Date </th>
+                    <td mat-cell *matCellDef="let item"> {{item.lastReStock | customDate}} </td>
+                </ng-container>
+
+                <!-- Action Column -->
+                <ng-container matColumnDef="actions" class="actionColumn">
+                    <th mat-header-cell *matHeaderCellDef> Actions </th>
+                    <td mat-cell *matCellDef="let item" class="action-buttons">
+                        <button mat-icon-button (click)="viewItem(item.itemsId)" class="icon-visibility">
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+                        <button mat-icon-button (click)="editItem(item.itemsId)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button (click)="confirmDeleteItem(item.itemsId)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+        </mat-card-content>
+    </mat-card>
+</div>

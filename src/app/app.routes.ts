@@ -3,11 +3,13 @@ import { CustomerListComponent } from './features/customer/customer-list/custome
 import { ItemListComponent } from './features/item/item-list/item-list.component';
 import { OrderListComponent } from './features/order/order-list/order-list.component';
 import { CustomerViewComponent } from './features/customer/customer-view/customer-view.component';
+import { ItemViewComponent } from './features/item/item-view/item-view.component';
 
 export const routes: Routes = [
     { path: 'customer', component: CustomerListComponent },
     { path: 'customer-view/:id', component: CustomerViewComponent },
     { path: 'item', component: ItemListComponent },
+    { path: 'item-view/:id', component: ItemViewComponent },
     { path: 'order', component: OrderListComponent },
     { path: '', redirectTo: '/customer', pathMatch: 'full' }
 ];

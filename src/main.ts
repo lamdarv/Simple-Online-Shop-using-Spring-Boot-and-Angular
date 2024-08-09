@@ -14,12 +14,24 @@ import { CustomDatePipe } from './app/shared/pipes/custom-date.pipe';
 import { SharedModule } from './app/shared/shared.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
     provideAnimationsAsync(),
     provideHttpClient(),
-    importProvidersFrom(MatTableModule, MatButtonModule, MatPaginatorModule, MatSortModule, SharedModule, MatDialogModule, MatCardModule),
+    importProvidersFrom(
+      MatTableModule, 
+      MatButtonModule, 
+      MatPaginatorModule, 
+      MatSortModule, 
+      SharedModule, 
+      MatDialogModule, 
+      MatCardModule,
+      MatDatepickerModule,
+      MatNativeDateModule
+    ),
   ]
 }).catch((err) => console.error(err));

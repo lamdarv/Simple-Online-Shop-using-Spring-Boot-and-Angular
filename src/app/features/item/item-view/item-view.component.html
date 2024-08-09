@@ -1,1 +1,36 @@
-<p>item-view works!</p>
+<div *ngIf="item" class="item-view">
+    <mat-card>
+        <mat-card-title>Item Details</mat-card-title>
+        <mat-card-content>
+            <div class="item-details">
+                <div class="row">
+                    <div class="col">
+                        <p><strong>ID:</strong> {{ item.itemsId }}</p>
+                    </div>
+                    <div class="col">
+                        <p><strong>Name:</strong> {{ item.itemsName }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Code:</strong> {{ item.itemsCode }}</p>
+                    </div>
+                    <div class="col">
+                        <p><strong>Stock:</strong> {{ item.stock }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Price:</strong> IDR {{ item.price }}</p>
+                    </div>
+                    <div class="col">
+                        <p><strong>Is Available:</strong> {{ item.isAvailable }}</p>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="goBack()">Back</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

@@ -5,5 +5,5 @@ export interface Item {
     stock: number;
     price: number;
     isAvailable: boolean;
-    lastReStock?: Date;
+    lastReStock?: string;
   }

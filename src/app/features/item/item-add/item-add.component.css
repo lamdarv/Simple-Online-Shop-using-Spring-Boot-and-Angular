@@ -1,0 +1,44 @@
+* {
+  overflow-y: hidden;
+}
+
+.content {
+  margin: 20px;
+  overflow-y: hidden;
+}
+
+h6 {
+  margin: 5px;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.dialog-content {
+  max-height: 700px;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  margin: 20px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 16px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.full-width-checkbox {
+  grid-column: span 2;
+  margin-top: 16px;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  margin: 4px;
+  padding: 4px;
+}
+

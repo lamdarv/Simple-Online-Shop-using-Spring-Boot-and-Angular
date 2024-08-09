@@ -87,10 +87,6 @@ export class CustomerListComponent implements OnInit {
     this.router.navigate(['/customer-view', customerId]);
   }
 
-  // editCustomer(customerId: number) {
-  //   this.router.navigate(['/customer-edit', customerId]);
-  // }
-
   confirmDeleteCustomer(customerId: number) {
     const dialogRef = this.dialog.open(DeleteCustomerDialog, {
       width: '300px',
@@ -110,7 +106,6 @@ export class CustomerListComponent implements OnInit {
       }
     });
   }
-  
 
   openCreateCustomerDialog(): void {
     console.log("Opening dialog"); // Add this line for debugging
