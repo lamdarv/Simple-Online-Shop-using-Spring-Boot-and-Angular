@@ -63,6 +63,22 @@ public class OrderService {
     }
 
     @Transactional(readOnly = true)
+    public List<OrderDTO> getAllOrders() {
+        return orderRepository.findAll().stream()
+                .map(order -> {
+                    OrderDTO orderDTO = modelMapper.map(order, OrderDTO.class);
+
+                    // Mengambil customerName dan itemName dari entitas terkait
+                    orderDTO.setCustomerName(order.getCustomer().getCustomerName());
+                    orderDTO.setItemName(order.getItem().getItemsName());
+
+                    return orderDTO;
+                })
+                .collect(Collectors.toList());
+    }
+
+
+    @Transactional(readOnly = true)
     public OrderDTO getOrderById(Integer orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(()->new ResourceNotFoundException("Order not found with id " + orderId));

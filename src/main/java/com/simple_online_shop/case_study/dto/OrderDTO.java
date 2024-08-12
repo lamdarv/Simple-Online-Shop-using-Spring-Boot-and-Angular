@@ -14,5 +14,7 @@ public class OrderDTO {
     private Integer quantity;
     private Integer customerId;
     private Integer itemsId;
+    private String customerName;
+    private String itemName;
 }
 

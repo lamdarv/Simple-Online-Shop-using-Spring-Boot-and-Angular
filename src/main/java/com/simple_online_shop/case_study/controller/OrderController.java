@@ -43,6 +43,21 @@ public class OrderController {
         }
     }
 
+    @GetMapping
+    public ResponseEntity<CommonResponseDTO<List<OrderDTO>>> getAllOrders() {
+        try {
+            List<OrderDTO> orderDTOList = orderService.getAllOrders();
+            CommonResponseDTO<List<OrderDTO>> response = new CommonResponseDTO<>("Order fetched successfully", orderDTOList);
+            return ResponseEntity.ok(response);
+        } catch (ResourceNotFoundException e) {
+            CommonResponseDTO<List<OrderDTO>> response = new CommonResponseDTO<>(e.getMessage(), null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        } catch (Exception e) {
+            CommonResponseDTO<List<OrderDTO>> response = new CommonResponseDTO<>("An error occured while fetching orders.", null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
     @GetMapping("/{orderId}")
     public ResponseEntity<?> getOrderById(
             @PathVariable Integer orderId) {
