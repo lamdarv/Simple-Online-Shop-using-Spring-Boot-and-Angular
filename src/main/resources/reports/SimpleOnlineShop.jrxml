@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SimpleOnlineShop" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" uuid="e9bb1a27-f975-4aa4-98f9-75524c5daafa">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#FFFFFF" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="orderId" class="java.lang.Integer"/>
+	<field name="orderCode" class="java.lang.String"/>
+	<field name="orderDate" class="java.time.LocalDateTime"/>
+	<field name="totalPrice" class="java.math.BigDecimal"/>
+	<field name="quantity" class="java.lang.Integer"/>
+	<field name="customerId" class="java.lang.Integer"/>
+	<field name="customerName" class="java.lang.String"/>
+	<field name="itemId" class="java.lang.Integer"/>
+	<field name="itemName" class="java.lang.String"/>
+	<detail>
+		<band height="410" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement style="Column header" x="10" y="184" width="99" height="20" forecolor="#000000" uuid="f8570c2f-4404-4725-885a-4eb3c26abb4a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orderId}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="10" y="159" width="99" height="20" forecolor="#000000" uuid="fce324aa-31f5-453a-a957-28bc6f740c75"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Order ID]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Column header" x="330" y="219" width="214" height="20" forecolor="#000000" uuid="987037f5-deb5-4cae-84bf-7992a30aa755"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customerId}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="10" y="219" width="320" height="20" forecolor="#000000" uuid="5b6fd70a-da7c-4173-9521-4932de07ae11"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Customer ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="10" y="240" width="320" height="20" forecolor="#000000" uuid="38bf7ecc-db3d-4b69-96c6-a72600666be2"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Customer Name]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="330" y="240" width="214" height="20" forecolor="#000000" uuid="6f51b23f-5e22-4475-a263-986201cc8f27"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customerName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="224" y="159" width="99" height="20" forecolor="#000000" uuid="40c9e0eb-5970-403a-aa4f-011ee0f8d105"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Order Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="445" y="159" width="99" height="20" forecolor="#000000" uuid="39bdf821-b462-49a9-be79-50a2b96e008f"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Order Date]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Column header" x="224" y="179" width="99" height="20" forecolor="#000000" uuid="80758af4-ca2e-48bd-929f-3184b31e1c27"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orderCode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Column header" x="445" y="179" width="99" height="20" forecolor="#000000" uuid="4f738ea5-78cf-49b7-8621-6650d57c2a93"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orderDate} != null ? new java.text.SimpleDateFormat("dd MMMM yyyy").format(java.sql.Timestamp.valueOf($F{orderDate})) : ""]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="10" y="209" width="534" height="1" backcolor="#C2C2C2" uuid="7fb4800e-cb6c-469c-a8cc-0f4706b13f3b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="10" y="263" width="534" height="1" backcolor="#C2C2C2" uuid="7ab2345b-9965-4e18-9f87-7425bae69aad">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField>
+				<reportElement style="Column header" x="330" y="270" width="214" height="20" forecolor="#000000" uuid="8d612f5e-e77e-4c42-9e70-7a4de8f1d9ea"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{itemId}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="10" y="344" width="534" height="1" backcolor="#2B2524" uuid="8ebf0471-3f3d-49ea-9c66-c4586a7cfa53">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="330" y="291" width="214" height="20" forecolor="#000000" uuid="79b0c73c-4c66-428c-9a88-605fc44af5af"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{itemName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="10" y="270" width="320" height="20" forecolor="#000000" uuid="f741b1e0-4c96-4431-9146-bf057a547889"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Item ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="10" y="291" width="320" height="20" forecolor="#000000" uuid="6bef312d-cb8f-4d6a-a629-e5b7ca2b32ea"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Item Name]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Column header" x="413" y="349" width="131" height="20" forecolor="#000000" uuid="34fe3def-199c-47a6-ad62-f386219398a5"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement style="Column header" x="413" y="370" width="131" height="20" forecolor="#000000" uuid="078ea0ea-e406-46ba-aea1-7af0bd826f81"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalPrice}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="10" y="370" width="403" height="20" forecolor="#000000" uuid="52ac47d5-94a5-4111-b69a-fbd704ea57df"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Total Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="10" y="349" width="403" height="20" forecolor="#000000" uuid="21897474-88f3-4b6c-9ccd-717c63a11e45"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Quantity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Title" x="0" y="70" width="555" height="40" uuid="524767a9-e7e5-4041-9b08-5a7210b38e22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="25" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ORDER SUMMARY]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="224" height="50" uuid="37a45e89-5f08-4d1f-bea5-dca19855ca3b"/>
+				<imageExpression><![CDATA["D:\\Kerjaan\\PadepokanTujuhSembilan\\CaseStudy\\simple-online-shop\\frontend\\public\\assets\\logoApp.png"]]></imageExpression>
+			</image>
+			<frame>
+				<reportElement mode="Opaque" x="1" y="132" width="554" height="20" backcolor="#666666" uuid="eb0fefed-b830-492b-a0c9-ec23411537a7"/>
+			</frame>
+			<break>
+				<reportElement x="0" y="398" width="100" height="1" uuid="2ce1c206-2361-4429-b4ad-a5825bcffa87"/>
+			</break>
+		</band>
+	</detail>
+</jasperReport>

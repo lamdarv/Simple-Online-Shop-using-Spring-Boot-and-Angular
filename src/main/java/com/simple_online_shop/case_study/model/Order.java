@@ -27,12 +27,29 @@ public class Order {
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "items_id", nullable = false)
     private Item item;
+
+    public Integer getCustomerId() {
+        return this.customer != null ? this.customer.getCustomerId() : null;
+    }
+
+    public String getCustomerName() {
+        return this.customer != null ? this.customer.getCustomerName() : null;
+    }
+
+    public Integer getItemId() {
+        return this.item != null ? this.item.getItemsId() : null;
+    }
+
+    public String getItemName() {
+        return this.item != null ? this.item.getItemsName() : null;
+    }
+
 }
 
