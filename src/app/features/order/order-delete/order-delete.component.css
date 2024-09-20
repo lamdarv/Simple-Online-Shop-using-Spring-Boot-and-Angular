@@ -1,0 +1,22 @@
+.content {
+  margin: 0;
+  padding-bottom: 10px;
+}
+
+h6 {
+  padding: 10px;
+  padding-top: 0 !important;
+  margin: 0;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px;
+  padding: 0;
+}
+
+mat-dialog-content {
+  padding: 10 !important;
+  margin: 15 !important;
+}

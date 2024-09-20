@@ -3,7 +3,7 @@
     <mat-card-header>
       <mat-card-title>Customer List</mat-card-title>
       <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="openCreateCustomerDialog()">Create Customer</button>
+        <button mat-raised-button color="primary" (click)="openCreateCustomerDialog()" class="hide-text-on-small"><mat-icon>person_add</mat-icon><span>Create Customer</span></button>
       </mat-card-actions>
     </mat-card-header>
     <mat-card-content>
@@ -60,15 +60,15 @@
         <ng-container matColumnDef="actions" class="actionColumn">
           <th mat-header-cell *matHeaderCellDef> Actions </th>
           <td mat-cell *matCellDef="let customer" class="action-buttons">
-            <button mat-icon-button (click)="viewCustomer(customer.customerId)" class="icon-visibility">
+            <button mat-icon-button (click)="viewCustomer(customer.customerId)">
               <mat-icon>visibility</mat-icon>
             </button>
-            <button mat-icon-button (click)="editCustomer(customer.customerId)">
+            <!-- <button mat-icon-button (click)="editCustomer(customer.customerId)">
               <mat-icon>edit</mat-icon>
             </button>
             <button mat-icon-button (click)="confirmDeleteCustomer(customer.customerId)">
               <mat-icon>delete</mat-icon>
-            </button>
+            </button> -->
           </td>
         </ng-container>
 

@@ -12,7 +12,7 @@
 }
 
 .logo {
-  height: 50px; /* Adjust this size as needed */
+  height: 50px; 
   margin-right: 10px;
 }
 
@@ -60,7 +60,7 @@ button:hover {
 @media (max-width: 700px) {
   .menu-toggle {
     display: block;
-    margin-left: auto; /* Add this line to push the toggle button to the right */
+    margin-left: auto; 
   }
 
   nav {
@@ -81,7 +81,7 @@ button:hover {
     flex-direction: row;
     align-items: center;
     width: 100%;
-    justify-content: space-between; /* Add this line to space out the logo and toggle button */
+    justify-content: space-between; 
   }
 
   nav ul {

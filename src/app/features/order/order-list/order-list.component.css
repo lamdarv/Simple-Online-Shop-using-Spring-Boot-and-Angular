@@ -1,0 +1,117 @@
+.order-list {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+
+mat-card {
+  width: 100%;
+  padding: 5px;
+}
+
+mat-card-header {
+  padding: 16px;
+  justify-content: space-between;
+}
+
+mat-card-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.tableOrder {
+  width: 100%;
+  margin: 10px 0;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.mat-header-cell,
+.mat-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mat-elevation-z8 {
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.mat-paginator {
+  margin-top: 20px;
+}
+
+.icon-edit,
+.icon-delete {
+  display: none !important;
+}
+
+.fix-text {
+  white-space: normal !important;
+  word-break: break-all !important;
+}
+
+@media (max-width: 800px) {
+  td.cdk-column-actions button {
+    margin: 8px;
+  }
+
+  .hide-text-on-small {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hide-text-on-small span {
+    display: none; 
+  }
+
+  .hide-text-on-small mat-icon {
+    margin: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .mat-header-row {
+    display: none;
+  }
+
+  .mat-row {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .mat-cell {
+    display: block;
+  }
+
+  .mat-cell:not(:last-child) {
+    border-bottom: 1px solid #eee;
+    padding: 16px;
+  }
+
+  .order-list {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 450px) {
+  ::ng-deep .mat-mdc-paginator-range-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  ::ng-deep .mat-mdc-paginator-range-label {
+    order: 1;
+    margin: 0 !important;
+    margin-right: 12px !important;
+    width: 100%;
+    text-align: right;
+  }
+}

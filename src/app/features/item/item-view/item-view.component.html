@@ -30,7 +30,22 @@
             </div>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-raised-button color="primary" (click)="goBack()">Back</button>
+            <!-- Back Button with arrow_back icon -->
+            <button class="hide-text-on-small" id="backButton" mat-raised-button color="primary" (click)="goBack()">
+                <mat-icon>arrow_back</mat-icon> <span>Back</span>
+            </button>
+
+            <!-- Edit Button with edit icon -->
+            <button class="hide-text-on-small" id="editButton" mat-raised-button color="accent"
+                (click)="editItem(item.itemsId)">
+                <mat-icon>edit</mat-icon> <span>Update Item</span>
+            </button>
+
+            <!-- Delete Button with delete icon -->
+            <button class="hide-text-on-small" id="deleteButton" mat-raised-button color="warn"
+                (click)="confirmDeleteItem(item.itemsId)">
+                <mat-icon>delete</mat-icon> <span>Delete Item</span>
+            </button>
         </mat-card-actions>
     </mat-card>
 </div>

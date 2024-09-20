@@ -1,0 +1,54 @@
+* {
+  overflow-y: hidden;
+}
+
+.content {
+  margin: 20px;
+  overflow-y: hidden;
+}
+
+h6 {
+  margin: 5px;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.dialog-content {
+  max-height: 700px;
+  margin: 20px;
+}
+
+mat-select {
+  max-height: 48px; /* Sesuaikan dengan keperluan Anda */
+  line-height: 48px;
+  padding: 0;
+}
+
+.mat-select-panel {
+  max-height: 200px; /* Atur sesuai kebutuhan */
+  overflow-y: auto; /* Tambahkan scrollbar di dropdown jika terlalu banyak item */
+}
+
+.mat-select-trigger {
+  display: flex;
+  align-items: center;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-checkbox {
+  margin-bottom: 16px;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  margin: 4px;
+  padding: 4px;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}

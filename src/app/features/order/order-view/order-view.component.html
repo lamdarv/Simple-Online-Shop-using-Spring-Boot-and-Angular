@@ -1,1 +1,63 @@
-<p>order-view works!</p>
+<div *ngIf="order" class="order-view">
+    <mat-card>
+        <mat-card-title>Order Details</mat-card-title>
+        <mat-card-content>
+            <div class="order-details">
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Order ID:</strong> {{ order.orderId }}</p>
+                    </div>
+                    <div class="col fix-text">
+                        <p><strong>Order Code:</strong> {{ order.orderCode }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Customer ID:</strong> {{ order.customerId }}</p>
+                    </div>
+                    <div class="col">
+                        <p><strong>Customer Name:</strong> {{ customerName }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Item ID:</strong> {{ order.itemsId }}</p>
+                    </div>
+                    <div class="col">
+                        <p><strong>Item Name:</strong> {{ itemName }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Quantity:</strong> {{ order.quantity }}</p>
+                    </div>
+                    <div class="col">
+                        <p><strong>Total Price:</strong> IDR {{ order.totalPrice }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Order Date:</strong> {{ order.orderDateConverted | date: 'shortDate' }}</p>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button class="hide-text-on-small" id="backButton" mat-raised-button color="primary" (click)="goBack()">
+                <mat-icon>arrow_back</mat-icon> <span>Back</span>
+            </button>
+            <button class="hide-text-on-small" id="downloadButton" mat-raised-button color="accent"
+                (click)="downloadReportByOrderId(order.orderId)">
+                <mat-icon>cloud_download</mat-icon> <span>Download Order Summary</span>
+            </button>
+            <button class="hide-text-on-small" id="updateButton" mat-raised-button color="accent"
+                (click)="editOrder(order.orderId)">
+                <mat-icon>edit</mat-icon> <span>Update Order</span>
+            </button>
+            <button class="hide-text-on-small" id="deleteButton" mat-raised-button color="warn"
+                (click)="confirmDeleteOrder(order.orderId)">
+                <mat-icon>delete</mat-icon> <span>Delete Order</span>
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>

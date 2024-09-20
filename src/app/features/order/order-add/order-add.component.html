@@ -1,1 +1,33 @@
-<p>order-add works!</p>
+<div class="content">
+    <h6 mat-dialog-title>Create Order</h6>
+    <div mat-dialog-content class="dialog-content">
+        <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="fill">
+                <mat-label>Customer</mat-label>
+                <mat-select formControlName="customerId">
+                    <mat-option *ngFor="let customer of customers" [value]="customer.customerId">
+                        {{ customer.customerName }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Item</mat-label>
+                <mat-select formControlName="itemsId">
+                    <mat-option *ngFor="let item of items" [value]="item.itemsId">
+                        {{ item.itemsName }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Quantity</mat-label>
+                <input matInput type="number" formControlName="quantity" />
+            </mat-form-field>
+        </form>
+    </div>
+    <div mat-dialog-actions class="dialog-actions">
+        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="orderForm.invalid" (click)="onSubmit()">Create Order</button>
+    </div>
+</div>

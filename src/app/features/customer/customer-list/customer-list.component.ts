@@ -14,7 +14,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { DeleteCustomerDialog } from '../customer-delete/customer-delete.component';
 import { CustomerAddDialog } from '../customer-add/customer-add.component';
-import { CustomerEditDialog } from '../customer-edit/customer-edit.component';
 
 @Component({
   selector: 'app-customer-list',
@@ -87,26 +86,6 @@ export class CustomerListComponent implements OnInit {
     this.router.navigate(['/customer-view', customerId]);
   }
 
-  confirmDeleteCustomer(customerId: number) {
-    const dialogRef = this.dialog.open(DeleteCustomerDialog, {
-      width: '300px',
-      data: { customerId: customerId }
-    });
-  
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.customerService.deleteCustomer(customerId).subscribe({
-          next: () => {
-            this.dataSource.data = this.dataSource.data.filter(c => c.customerId !== customerId);
-          },
-          error: (error) => {
-            console.error('Error deleting customer:', error);
-          }
-        });
-      }
-    });
-  }
-
   openCreateCustomerDialog(): void {
     console.log("Opening dialog"); // Add this line for debugging
     const dialogRef = this.dialog.open(CustomerAddDialog, {
@@ -120,20 +99,4 @@ export class CustomerListComponent implements OnInit {
     });
   }
 
-  editCustomer(customerId: number) {
-    const dialogRef = this.dialog.open(CustomerEditDialog, {
-      width: '300px',
-      data: { customerId: customerId }
-    });
-  
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        const index = this.dataSource.data.findIndex(c => c.customerId === customerId);
-        if (index !== -1) {
-          this.dataSource.data[index] = result.data;
-          this.dataSource._updateChangeSubscription(); // This triggers the table to re-render
-        }
-      }
-    });
-  }
 }

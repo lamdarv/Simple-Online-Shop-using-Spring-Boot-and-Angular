@@ -1,1 +1,15 @@
-<p>order-edit works!</p>
+<div class="content">
+    <h6 mat-dialog-title>Edit Order</h6>
+    <div mat-dialog-content class="dialog-content">
+        <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="fill">
+                <mat-label>Quantity</mat-label>
+                <input matInput formControlName="quantity">
+            </mat-form-field>
+        </form>
+    </div>
+    <div mat-dialog-actions class="dialog-actions">
+        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-raised-button color="primary" (click)="onSubmit()">Update</button>
+    </div>
+</div>

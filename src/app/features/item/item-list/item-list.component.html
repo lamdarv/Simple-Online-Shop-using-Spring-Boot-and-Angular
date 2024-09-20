@@ -3,7 +3,9 @@
         <mat-card-header>
             <mat-card-title>Item List</mat-card-title>
             <mat-card-actions>
-                <button mat-raised-button color="primary" (click)="openCreateItemDialog()">Create Item</button>
+                <button class="hide-text-on-small" mat-raised-button color="primary" (click)="openCreateItemDialog()">
+                    <mat-icon>add_box</mat-icon> <span>Create Item</span>
+                </button>
             </mat-card-actions>
         </mat-card-header>
         <mat-card-content>
@@ -57,19 +59,11 @@
                         <button mat-icon-button (click)="viewItem(item.itemsId)" class="icon-visibility">
                             <mat-icon>visibility</mat-icon>
                         </button>
-                        <button mat-icon-button (click)="editItem(item.itemsId)">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                        <button mat-icon-button (click)="confirmDeleteItem(item.itemsId)">
-                            <mat-icon>delete</mat-icon>
-                        </button>
                     </td>
                 </ng-container>
-
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-
             <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
         </mat-card-content>
     </mat-card>

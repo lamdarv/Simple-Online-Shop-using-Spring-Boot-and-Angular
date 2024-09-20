@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OrderDeleteComponent } from './order-delete.component';
+import { DeleteOrderDialog } from './order-delete.component';
 
-describe('OrderDeleteComponent', () => {
-  let component: OrderDeleteComponent;
-  let fixture: ComponentFixture<OrderDeleteComponent>;
+describe('DeleteOrderDialog', () => {
+  let component: DeleteOrderDialog;
+  let fixture: ComponentFixture<DeleteOrderDialog>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [OrderDeleteComponent]
+      imports: [DeleteOrderDialog]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(OrderDeleteComponent);
+    fixture = TestBed.createComponent(DeleteOrderDialog);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -3,6 +3,6 @@ import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [CommonModule],
-  exports: [] // Remove CustomDatePipe from exports
+  exports: [] 
 })
 export class SharedModule { }

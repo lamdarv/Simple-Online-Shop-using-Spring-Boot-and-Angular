@@ -38,7 +38,19 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="goBack()">Back</button>
+      <button class="hide-text-on-small" id="backButton" mat-raised-button color="primary" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon> <span>Back</span>
+      </button>
+      <button class="hide-text-on-small" id="downloadButton" mat-raised-button color="accent"
+        (click)="downloadReportByCustomerId(customer.customerId)">
+        <mat-icon>cloud_download</mat-icon> <span>Download Order Summary</span>
+      </button>
+      <button class="hide-text-on-small" id="editButton" mat-raised-button color="accent" (click)="editCustomer(customer.customerId)">
+        <mat-icon>edit</mat-icon> <span>Update Customer</span>
+      </button>
+      <button class="hide-text-on-small" id="deleteButton" mat-raised-button color="warn" (click)="confirmDeleteCustomer(customer.customerId)">
+        <mat-icon>delete</mat-icon> <span>Delete Customer</span>
+      </button>
     </mat-card-actions>
   </mat-card>
 </div>

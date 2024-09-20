@@ -13,7 +13,6 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { ItemAddDialog } from '../item-add/item-add.component';
-import { DeleteItemDialog } from '../item-delete/item-delete.component';
 import { ItemEditDialog } from '../item-edit/item-edit.component';
 
 @Component({
@@ -104,49 +103,6 @@ export class ItemListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.dataSource.data = [...this.dataSource.data, result.data];
-      }
-    });
-  }
-
-  confirmDeleteItem(itemId: number) {
-    const dialogRef = this.dialog.open(DeleteItemDialog, {
-      width: '300px',
-      data: { itemId: itemId }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.itemService.deleteItem(itemId).subscribe({
-          next: () => {
-            this.dataSource.data = this.dataSource.data.filter(i => i.itemsId !== itemId);
-          },
-          error: (error) => {
-            console.error('Error deleting item:', error);
-          }
-        });
-      }
-    });
-  }
-
-
-  // Uncomment and adjust as necessary
-  editItem(itemsId: number) {
-    const dialogWidth = this.isVerySmallScreen ? '300px' : '600px'; // Atur width sesuai kondisi layar
-
-    const dialogRef = this.dialog.open(ItemEditDialog, {
-      width: dialogWidth,
-      data: { itemsId: itemsId }
-    });
-
-    dialogRef.componentInstance.isVerySmallScreen = this.isVerySmallScreen;
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        const index = this.dataSource.data.findIndex(i => i.itemsId === itemsId);
-        if (index !== -1) {
-          this.dataSource.data[index] = result.data;
-          this.dataSource._updateChangeSubscription();
-        }
       }
     });
   }

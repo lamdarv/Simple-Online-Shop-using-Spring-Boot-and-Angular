@@ -46,8 +46,14 @@ export class CustomerService {
     return this.http.put<CommonResponseDTO<Customer>>(`${this.apiUrl}/${customerId}`, formData);
   }
 
-
   deleteCustomer(customerId: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${customerId}`, { responseType: 'text' });
   }
+
+  // 'blob' digunakan untuk mendownload file
+  downloadReportByCustomerId(customerId: number): Observable<Blob> {
+    const url = `http://localhost:8081/api/report/customer/${customerId}`;
+    return this.http.get(url, { responseType: 'blob' }); 
+  }
+
 }

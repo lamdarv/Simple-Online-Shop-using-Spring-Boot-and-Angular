@@ -39,6 +39,27 @@ mat-card-actions {
   justify-content: flex-end;
 }
 
+#backButton,
+#editButton {
+  margin-right: 10px;
+}
+
+@media (max-width: 880px) {
+  .hide-text-on-small {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hide-text-on-small span {
+    display: none; 
+  }
+
+  .hide-text-on-small mat-icon {
+    margin: 0; 
+  }
+}
+
 @media (max-width: 440px) {
   .row {
     flex-direction: column; 

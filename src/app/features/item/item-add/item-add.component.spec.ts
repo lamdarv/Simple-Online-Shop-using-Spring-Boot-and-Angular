@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ItemAddComponent } from './item-add.component';
+import { ItemAddDialog } from './item-add.component';
 
-describe('ItemAddComponent', () => {
-  let component: ItemAddComponent;
-  let fixture: ComponentFixture<ItemAddComponent>;
+describe('ItemAddDialog', () => {
+  let component: ItemAddDialog;
+  let fixture: ComponentFixture<ItemAddDialog>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ItemAddComponent]
+      imports: [ItemAddDialog]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ItemAddComponent);
+    fixture = TestBed.createComponent(ItemAddDialog);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

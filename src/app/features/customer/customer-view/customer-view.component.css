@@ -39,15 +39,37 @@ mat-card-actions {
   justify-content: flex-end;
 }
 
-@media (max-width: 440px) {
+#backButton,
+#editButton,
+#downloadButton {
+  margin-right: 10px;
+}
+
+@media (max-width: 880px) {
+  .hide-text-on-small {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hide-text-on-small span {
+    display: none;
+  }
+
+  .hide-text-on-small mat-icon {
+    margin: 0; 
+  }
+}
+
+@media (max-width: 640px) {
   .row {
-    flex-direction: column; 
+    flex-direction: column;
   }
   .col {
-    margin-right: 0; 
-    margin-bottom: 16px; 
+    margin-right: 0;
+    margin-bottom: 16px;
   }
   .col:last-child {
-    margin-bottom: 0; 
+    margin-bottom: 0;
   }
 }
