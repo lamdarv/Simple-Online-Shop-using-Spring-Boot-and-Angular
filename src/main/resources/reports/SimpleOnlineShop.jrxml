@@ -19,7 +19,7 @@
 	<field name="itemId" class="java.lang.Integer"/>
 	<field name="itemName" class="java.lang.String"/>
 	<detail>
-		<band height="410" splitType="Stretch">
+		<band height="500" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
 				<reportElement style="Column header" x="10" y="184" width="99" height="20" forecolor="#000000" uuid="f8570c2f-4404-4725-885a-4eb3c26abb4a"/>
@@ -185,9 +185,9 @@
 			<frame>
 				<reportElement mode="Opaque" x="1" y="132" width="554" height="20" backcolor="#666666" uuid="eb0fefed-b830-492b-a0c9-ec23411537a7"/>
 			</frame>
-			<break>
-				<reportElement x="0" y="398" width="100" height="1" uuid="2ce1c206-2361-4429-b4ad-a5825bcffa87"/>
-			</break>
+<!--			<break>-->
+<!--				<reportElement x="0" y="390" width="99" height="1" uuid="2ce1c206-2361-4429-b4ad-a5825bcffa87"/>-->
+<!--			</break>-->
 		</band>
 	</detail>
 </jasperReport>

@@ -25,11 +25,14 @@ public class ReportService {
         List<Order> orders = orderRepository.findByCustomerCustomerId(customerId);
 
         if (orders.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Error-Message", "Customer has no orders.");
+            return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
         }
 
         return generateReport(orders, "CustomerOrderSummary_" + customerId + ".pdf");
     }
+
 
     // Metode untuk generate report berdasarkan orderId
     public ResponseEntity<byte[]> generateOrderReportByOrderId(Integer orderId) {
