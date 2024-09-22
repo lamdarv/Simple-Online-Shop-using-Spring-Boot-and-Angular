@@ -48,6 +48,20 @@ mat-card-title {
   word-break: break-all !important;
 }
 
+.status-badge.available {
+  background-color: #4caf50;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.status-badge.unavailable {
+  background-color: #f44336;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
 @media (max-width: 800px) {
   td.cdk-column-actions button {
     margin: 8px;
@@ -98,16 +112,16 @@ mat-card-title {
 @media (max-width: 450px) {
   ::ng-deep .mat-mdc-paginator-range-actions {
     display: flex;
-    justify-content: flex-end; 
+    justify-content: flex-end;
     align-items: center;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
   }
 
   ::ng-deep .mat-mdc-paginator-range-label {
     order: 1;
     margin: 0 !important;
     margin-right: 12px !important;
-    width: 100%; 
+    width: 100%;
     text-align: right;
   }
 }

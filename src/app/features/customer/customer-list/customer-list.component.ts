@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { DeleteCustomerDialog } from '../customer-delete/customer-delete.component';
 import { CustomerAddDialog } from '../customer-add/customer-add.component';
+import { CommonResponseDTO } from '../../../models/common-response-dto.model';
 
 @Component({
   selector: 'app-customer-list',
@@ -30,7 +31,7 @@ import { CustomerAddDialog } from '../customer-add/customer-add.component';
     MatDialogModule,
     MatCardModule,
     DeleteCustomerDialog,
-    CustomerAddDialog
+    CustomerAddDialog,
   ],
   templateUrl: './customer-list.component.html',
   styleUrls: ['./customer-list.component.css']
@@ -49,13 +50,31 @@ export class CustomerListComponent implements OnInit {
   constructor(private customerService: CustomerService, private router: Router, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.customerService.getCustomers().subscribe((response: any) => {
-      this.dataSource.data = response.data;
+    this.customerService.getCustomers().subscribe((response: CommonResponseDTO<Customer[]>) => {
+      if (response && response.data) {
+        // Convert lastOrderDate from array to Date and store it in lastOrderDateConverted
+        const customersWithConvertedDate = response.data.map((customer: Customer) => ({
+          ...customer,
+          lastOrderDateConverted: customer.lastOrderDate ? this.convertToDate(customer.lastOrderDate) : undefined
+        }));
+
+        // Set the dataSource with the converted data
+        this.dataSource.data = customersWithConvertedDate;
+      }
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
+
     this.updateScreenSize();
     window.addEventListener('resize', this.updateScreenSize.bind(this));
+  }
+
+  convertToDate(dateArray: number[]): Date {
+    if (Array.isArray(dateArray) && dateArray.length >= 5) {
+      const [year, month, day, hour, minute] = dateArray;
+      return new Date(year, month - 1, day, hour, minute);
+    }
+    return new Date();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -78,7 +97,7 @@ export class CustomerListComponent implements OnInit {
     } else if (this.isMediumScreen) {
       this.displayedColumns = ['customerId', 'customerName', 'customerAddress', 'customerCode', 'isActive', 'actions'];
     } else {
-      this.displayedColumns = ['customerId', 'customerName', 'customerAddress', 'customerCode', 'customerPhone', 'isActive', 'lastOrderDate', 'pic', 'actions'];
+      this.displayedColumns = ['customerId', 'urlPic', 'customerName', 'customerAddress', 'customerCode', 'customerPhone', 'isActive', 'lastOrderDateConverted', 'actions'];
     }
   }
 

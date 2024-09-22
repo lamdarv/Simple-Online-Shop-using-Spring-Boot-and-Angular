@@ -1,12 +1,30 @@
 .customer-view {
   display: flex;
   justify-content: center;
-  margin: 20px;
+  padding: 20px;
 }
 
-mat-card {
+.customer-card {
+  max-width: 600px;
   width: 100%;
   padding: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.customer-photo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-picture {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block; /* Ensure the image acts as a block-level element */
 }
 
 .customer-details {
@@ -17,31 +35,41 @@ mat-card {
 .row {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: 5px;
 }
 
 .col {
   flex: 1;
   margin-right: 20px;
+  margin-bottom: 5px;
 }
 
 .col:last-child {
   margin-right: 0;
 }
 
-mat-card-title {
-  font-size: 1.5rem;
-  margin-bottom: 16px;
+p {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+mat-card-title.title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 24px;
 }
 
 mat-card-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  padding: 16px 0;
 }
 
 #backButton,
+#downloadButton,
 #editButton,
-#downloadButton {
+#deleteButton {
   margin-right: 10px;
 }
 
@@ -57,7 +85,16 @@ mat-card-actions {
   }
 
   .hide-text-on-small mat-icon {
-    margin: 0; 
+    margin: 0;
+  }
+
+  .customer-card {
+    padding: 16px;
+  }
+
+  .profile-picture {
+    width: 60px;
+    height: 60px;
   }
 }
 
@@ -65,11 +102,33 @@ mat-card-actions {
   .row {
     flex-direction: column;
   }
+
   .col {
     margin-right: 0;
-    margin-bottom: 16px;
+    margin-bottom: 5px;
   }
+
   .col:last-child {
     margin-bottom: 0;
+  }
+
+  /* mat-card-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  } */
+
+  #backButton,
+  #downloadButton,
+  #editButton,
+  #deleteButton {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 430px) {
+  mat-card-actions {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

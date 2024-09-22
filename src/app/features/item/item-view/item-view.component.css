@@ -1,12 +1,15 @@
 .item-view {
   display: flex;
   justify-content: center;
-  margin: 20px;
+  padding: 20px;
 }
 
-mat-card {
+.item-card {
+  max-width: 600px;
   width: 100%;
   padding: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
 .item-details {
@@ -17,34 +20,61 @@ mat-card {
 .row {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: 5px;
 }
 
 .col {
   flex: 1;
-  margin-right: 20px;
+  margin-right: 5px;
 }
 
 .col:last-child {
   margin-right: 0;
 }
 
-mat-card-title {
-  font-size: 1.5rem;
-  margin-bottom: 16px;
+p {
+  margin: 0 !important;
+}
+
+mat-card-title.title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 24px;
 }
 
 mat-card-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  padding: 16px 0;
 }
 
 #backButton,
-#editButton {
+#editButton,
+#deleteButton {
   margin-right: 10px;
 }
 
 @media (max-width: 880px) {
+  .item-card {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .col {
+    margin-right: 0;
+    margin-bottom: 5px;
+  }
+
+  .col:last-child {
+    margin-bottom: 0;
+  }
+
   .hide-text-on-small {
     display: flex;
     justify-content: center;
@@ -52,23 +82,24 @@ mat-card-actions {
   }
 
   .hide-text-on-small span {
-    display: none; 
+    display: none;
   }
 
   .hide-text-on-small mat-icon {
-    margin: 0; 
+    margin: 0;
+  }
+
+  #backButton,
+  #editButton,
+  #deleteButton {
+    margin-right: 0;
+    margin-bottom: 10px;
   }
 }
 
-@media (max-width: 440px) {
-  .row {
-    flex-direction: column; 
-  }
-  .col {
-    margin-right: 0; 
-    margin-bottom: 16px; 
-  }
-  .col:last-child {
-    margin-bottom: 0; 
+@media (max-width: 430px) {
+  mat-card-actions {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

@@ -14,6 +14,7 @@ import { DeleteOrderDialog } from '../order-delete/order-delete.component';
 import { OrderEditDialog } from '../order-edit/order-edit.component';
 import { saveAs } from 'file-saver';
 import { MatIcon } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-order-view',
@@ -39,16 +40,20 @@ export class OrderViewComponent implements OnInit {
     private orderService: OrderService,
     private customerService: CustomerService,
     private itemService: ItemService,
-    public dialog: MatDialog, 
-    private router: Router,   
-    private cdr: ChangeDetectorRef
+    public dialog: MatDialog,
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
     const orderId = this.route.snapshot.paramMap.get('id');
     if (orderId) {
       this.orderService.getOrderById(+orderId).subscribe((response: any) => {
-        this.order = response.data;
+        this.order = {
+          ...response.data,
+          orderDateConverted: response.data.orderDate ? this.convertToDate(response.data.orderDate) : undefined
+        };
 
         // Ambil data customer berdasarkan customerId dari order
         if (this.order?.customerId) {
@@ -63,12 +68,14 @@ export class OrderViewComponent implements OnInit {
             this.itemName = itemResponse.data.itemsName;
           });
         }
+
+        this.cdr.detectChanges();
       });
     }
   }
 
   goBack(): void {
-    this.router.navigate(['/order']); // Kembali ke halaman daftar order
+    this.router.navigate(['/order']);
   }
 
   confirmDeleteOrder(orderId: number): void {
@@ -81,15 +88,27 @@ export class OrderViewComponent implements OnInit {
       if (result) {
         this.orderService.deleteOrder(orderId).subscribe({
           next: () => {
-            this.router.navigate(['/order']); // Navigasi kembali ke daftar order setelah dihapus
+            this.snackBar.open('Order deleted successfully!', 'Close', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top'
+            });
+
+            this.router.navigate(['/order']);
           },
           error: (error) => {
+            this.snackBar.open('Error deleting order. Please try again.', 'Close', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top'
+            });
             console.error('Error deleting order:', error);
           }
         });
       }
     });
   }
+
 
   editOrder(orderId: number): void {
     console.log("Opening edit dialog for orderId:", orderId);
@@ -103,14 +122,29 @@ export class OrderViewComponent implements OnInit {
       if (result) {
         console.log("Edit completed. Fetching updated order data.");
 
-        // Fetch updated order data again
-        this.orderService.getOrderById(orderId).subscribe((response: any) => {
-          this.order = {
-            ...response.data,
-            orderDateConverted: response.data.orderDate ? this.convertToDate(response.data.orderDate) : undefined
-          };
+        this.orderService.getOrderById(orderId).subscribe({
+          next: (response: any) => {
+            this.order = {
+              ...response.data,
+              orderDateConverted: response.data.orderDate ? this.convertToDate(response.data.orderDate) : undefined
+            };
 
-          this.cdr.detectChanges(); // Memperbarui tampilan setelah data diperbarui
+            this.snackBar.open('Order updated successfully!', 'Close', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top'
+            });
+
+            this.cdr.detectChanges();
+          },
+          error: (error) => {
+            this.snackBar.open('Error updating order. Please try again.', 'Close', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top'
+            });
+            console.error('Error updating order:', error);
+          }
         });
       } else {
         console.log("Edit dialog was closed without any result.");
@@ -118,14 +152,25 @@ export class OrderViewComponent implements OnInit {
     });
   }
 
+
   downloadReportByOrderId(orderId: number): void {
     this.orderService.downloadReportByOrderId(orderId).subscribe({
       next: (blob) => {
-        const fileName = `order_${orderId}_report.pdf`; // Nama file yang akan didownload
-        saveAs(blob, fileName); // Gunakan file-saver untuk menyimpan file
+        const fileName = `order_${orderId}_report.pdf`;
+        saveAs(blob, fileName);
+        this.snackBar.open('Report downloaded successfully.', 'Close', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top'
+        });
       },
       error: (error) => {
         console.error('Error downloading order report:', error);
+        this.snackBar.open('An error occurred while downloading the report.', 'Close', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top'
+        });
       }
     });
   }

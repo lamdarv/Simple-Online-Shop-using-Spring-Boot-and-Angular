@@ -1,6 +1,6 @@
 <div *ngIf="order" class="order-view">
-    <mat-card>
-        <mat-card-title>Order Details</mat-card-title>
+    <mat-card class="order-card">
+        <mat-card-title class="title">Order Details</mat-card-title>
         <mat-card-content>
             <div class="order-details">
                 <div class="row">
@@ -48,15 +48,15 @@
             </button>
             <button class="hide-text-on-small" id="downloadButton" mat-raised-button color="accent"
                 (click)="downloadReportByOrderId(order.orderId)">
-                <mat-icon>cloud_download</mat-icon> <span>Download Order Summary</span>
+                <mat-icon>cloud_download</mat-icon> <span>Download Summary</span>
             </button>
             <button class="hide-text-on-small" id="updateButton" mat-raised-button color="accent"
                 (click)="editOrder(order.orderId)">
-                <mat-icon>edit</mat-icon> <span>Update Order</span>
+                <mat-icon>edit</mat-icon> <span>Update</span>
             </button>
             <button class="hide-text-on-small" id="deleteButton" mat-raised-button color="warn"
                 (click)="confirmDeleteOrder(order.orderId)">
-                <mat-icon>delete</mat-icon> <span>Delete Order</span>
+                <mat-icon>delete</mat-icon> <span>Delete</span>
             </button>
         </mat-card-actions>
     </mat-card>

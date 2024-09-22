@@ -12,6 +12,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { error } from 'console';
 
 @Component({
   selector: 'item-add-dialog',
@@ -29,6 +31,7 @@ import { MatCardModule } from '@angular/material/card';
     MatNativeDateModule,
     MatIconModule,
     MatCardModule,
+    MatSnackBarModule
   ]
 })
 export class ItemAddDialog {
@@ -37,9 +40,9 @@ export class ItemAddDialog {
 
   constructor(
     public dialogRef: MatDialogRef<ItemAddDialog>,
-
     private itemService: ItemService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar
   ) {
     this.itemForm = this.fb.group({
       itemsName: ['', Validators.required],
@@ -69,9 +72,23 @@ export class ItemAddDialog {
         lastReStock: lastReStockISO // Send in full ISO format
       };
 
-      this.itemService.createItem(newItem).subscribe((response) => {
-        if (response) {
-          this.dialogRef.close(response);
+      this.itemService.createItem(newItem).subscribe({
+        next: (response) => {
+          if (response) {
+            this.snackBar.open('Item added successfully!', 'Close', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top'
+            });
+            this.dialogRef.close(response);
+          }
+        },
+        error: () => {
+          this.snackBar.open('Error adding item. Please try again.', 'Close', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top'
+          });
         }
       });
     }

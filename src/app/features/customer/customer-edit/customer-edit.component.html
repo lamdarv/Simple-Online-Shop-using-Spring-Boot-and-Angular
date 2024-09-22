@@ -1,6 +1,6 @@
 <div class="content">
     <h6 mat-dialog-title>Edit Customer</h6>
-    <div mat-dialog-content class="dialog-content">
+    <div mat-dialog-content class="dialog-content scrollable-content">
         <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
             <mat-form-field appearance="fill">
                 <mat-label>Name</mat-label>
@@ -23,6 +23,11 @@
                 <label for="file" class="file-upload-label">Upload Image</label>
                 <input id="file" type="file" class="file-upload-input" (change)="onFileSelected($event)">
             </div>
+            <div class="image-preview" *ngIf="previewUrl">
+                <h6>Image Preview:</h6>
+                <img [src]="previewUrl" alt="Image Preview" class="preview-img" />
+            </div>
+            
         </form>
     </div>
     <div mat-dialog-actions class="dialog-actions">

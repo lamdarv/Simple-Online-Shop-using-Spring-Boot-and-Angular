@@ -1,11 +1,17 @@
 <div *ngIf="customer" class="customer-view">
-  <mat-card>
-    <mat-card-title>Customer Details</mat-card-title>
+  <mat-card class="customer-card">
+    <mat-card-title class="title">Customer Details</mat-card-title>
     <mat-card-content>
+      <div class="customer-photo">
+        <img [src]="customer.urlPic" alt="Profile Picture" class="profile-picture" *ngIf="customer.urlPic; else noPic" />
+        <ng-template #noPic>
+          <span></span>
+        </ng-template>
+      </div>
       <div class="customer-details">
         <div class="row">
           <div class="col">
-            <p><strong>ID:</strong> {{ customer.customerId }}</p>
+            <p><strong>ID Customer:</strong> {{ customer.customerId }}</p>
           </div>
           <div class="col">
             <p><strong>Address:</strong> {{ customer.customerAddress }}</p>
@@ -24,15 +30,12 @@
             <p><strong>Phone Number:</strong> {{ customer.customerPhone }}</p>
           </div>
           <div class="col">
-            <p><strong>Last Order Date:</strong> {{ customer.lastOrderDate | customDate }}</p>
+            <p><strong>Last Order Date:</strong> {{ customer.lastOrderDateConverted | date: 'shortDate' }}</p>
           </div>
         </div>
         <div class="row">
           <div class="col">
-            <p><strong>Is Active:</strong> {{ customer.isActive }}</p>
-          </div>
-          <div class="col">
-            <p><strong>PIC:</strong> {{ customer.pic }}</p>
+            <p><strong>Is Active:</strong> {{ customer.isActive ? 'Yes' : 'No' }}</p>
           </div>
         </div>
       </div>
@@ -43,13 +46,15 @@
       </button>
       <button class="hide-text-on-small" id="downloadButton" mat-raised-button color="accent"
         (click)="downloadReportByCustomerId(customer.customerId)">
-        <mat-icon>cloud_download</mat-icon> <span>Download Order Summary</span>
+        <mat-icon>cloud_download</mat-icon> <span>Download Summary</span>
       </button>
-      <button class="hide-text-on-small" id="editButton" mat-raised-button color="accent" (click)="editCustomer(customer.customerId)">
-        <mat-icon>edit</mat-icon> <span>Update Customer</span>
+      <button class="hide-text-on-small" id="editButton" mat-raised-button color="accent"
+        (click)="editCustomer(customer.customerId)">
+        <mat-icon>edit</mat-icon> <span>Edit</span>
       </button>
-      <button class="hide-text-on-small" id="deleteButton" mat-raised-button color="warn" (click)="confirmDeleteCustomer(customer.customerId)">
-        <mat-icon>delete</mat-icon> <span>Delete Customer</span>
+      <button class="hide-text-on-small" id="deleteButton" mat-raised-button color="warn"
+        (click)="confirmDeleteCustomer(customer.customerId)">
+        <mat-icon>delete</mat-icon> <span>Delete</span>
       </button>
     </mat-card-actions>
   </mat-card>

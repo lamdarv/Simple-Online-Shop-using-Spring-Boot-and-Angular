@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatOptionModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'order-add-dialog',
@@ -28,7 +29,8 @@ import { MatDialogRef } from '@angular/material/dialog';
     MatButtonModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatOptionModule
+    MatOptionModule,
+    MatSnackBarModule
   ]
 })
 export class OrderCreateComponent implements OnInit {
@@ -42,7 +44,8 @@ export class OrderCreateComponent implements OnInit {
     private customerService: CustomerService,
     private itemService: ItemService,
     private router: Router,
-    public dialogRef: MatDialogRef<OrderCreateComponent>
+    public dialogRef: MatDialogRef<OrderCreateComponent>,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
@@ -84,19 +87,43 @@ export class OrderCreateComponent implements OnInit {
     if (this.orderForm.valid) {
       console.log('Form is valid:', this.orderForm.value);
       const { customerId, itemsId, quantity } = this.orderForm.value;
+
       this.orderService.createOrder(customerId, itemsId, quantity).subscribe({
         next: (response) => {
           console.log('Order created successfully', response);
+
+          // Tampilkan alert ketika order berhasil dibuat
+          this.snackBar.open('Order created successfully!', 'Close', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top'
+          });
+
           this.dialogRef.close(response.data);
         },
         error: (error) => {
           console.error('Error creating order', error);
+
+          // Tampilkan alert ketika terjadi error saat membuat order
+          this.snackBar.open('Error creating order. Please try again.', 'Close', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top'
+          });
         }
       });
     } else {
       console.error('Form is invalid:', this.orderForm.value);
+
+      // Tampilkan alert jika form tidak valid
+      this.snackBar.open('Form is invalid. Please fill out all required fields.', 'Close', {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top'
+      });
     }
   }
+
 
   onNoClick(): void {
     this.dialogRef.close();

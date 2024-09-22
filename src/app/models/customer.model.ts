@@ -6,5 +6,7 @@ export interface Customer {
     customerPhone: string;
     isActive: boolean;
     lastOrderDate?: number[];
+    lastOrderDateConverted?: Date;
     pic?: string;
+    urlPic?: string;
 }

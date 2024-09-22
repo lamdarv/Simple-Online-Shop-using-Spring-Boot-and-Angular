@@ -43,19 +43,24 @@ mat-card-title {
   margin-top: 20px;
 }
 
-/* .icon-visibility {
-  display: none;
-} */
-
 .fix-text {
   white-space: normal !important;
   word-break: break-all !important;
 }
 
-@media (max-width: 1100px) {
-  /* .icon-visibility {
-    display: block;
-  } */
+
+.status-badge.active {
+  background-color: #4caf50;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.status-badge.inactive {
+  background-color: #f44336;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
 }
 
 @media (max-width: 800px) {
@@ -97,11 +102,11 @@ mat-card-title {
   }
 
   .hide-text-on-small span {
-    display: none; 
+    display: none;
   }
 
   .hide-text-on-small mat-icon {
-    margin: 0; 
+    margin: 0;
   }
 }
 
@@ -121,5 +126,3 @@ mat-card-title {
     text-align: right;
   }
 }
-
-

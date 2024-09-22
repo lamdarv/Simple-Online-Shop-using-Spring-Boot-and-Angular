@@ -3,7 +3,8 @@
     <mat-card-header>
       <mat-card-title>Customer List</mat-card-title>
       <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="openCreateCustomerDialog()" class="hide-text-on-small"><mat-icon>person_add</mat-icon><span>Create Customer</span></button>
+        <button mat-raised-button color="primary" (click)="openCreateCustomerDialog()"
+          class="hide-text-on-small"><mat-icon>person_add</mat-icon><span>Create Customer</span></button>
       </mat-card-actions>
     </mat-card-header>
     <mat-card-content>
@@ -12,6 +13,18 @@
         <ng-container matColumnDef="customerId">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
           <td mat-cell *matCellDef="let customer"> {{customer.customerId}} </td>
+        </ng-container>
+
+        <!-- Profile Picture Column -->
+        <ng-container matColumnDef="urlPic">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Profile Picture </th>
+          <td mat-cell *matCellDef="let customer">
+            <img [src]="customer.urlPic" alt="Profile Picture" width="50" height="50"
+              *ngIf="customer.urlPic; else noPic" />
+            <ng-template #noPic>
+              <span>No Image</span>
+            </ng-template>
+          </td>
         </ng-container>
 
         <!-- Name Column -->
@@ -41,19 +54,19 @@
         <!-- Is Active Column -->
         <ng-container matColumnDef="isActive">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Is Active </th>
-          <td mat-cell *matCellDef="let customer"> {{customer.isActive}} </td>
-        </ng-container>
+          <td mat-cell *matCellDef="let customer">
+            <span class="status-badge" [ngClass]="customer.isActive ? 'active' : 'inactive'">
+              {{ customer.isActive ? 'Yes' : 'No' }}
+            </span>
+          </td>
+        </ng-container>        
 
         <!-- Last Order Date Column -->
-        <ng-container matColumnDef="lastOrderDate">
+        <ng-container matColumnDef="lastOrderDateConverted">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Order Date </th>
-          <td mat-cell *matCellDef="let customer"> {{customer.lastOrderDate | customDate}} </td>
-        </ng-container>
-
-        <!-- PIC Column -->
-        <ng-container matColumnDef="pic" >
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> PIC </th>
-          <td mat-cell *matCellDef="let customer" class="fix-text"> {{customer.pic}} </td>
+          <td mat-cell *matCellDef="let customer">
+            {{ customer.lastOrderDateConverted ? (customer.lastOrderDateConverted | date: 'short') : '-' }}
+          </td>
         </ng-container>
 
         <!-- Action Column -->
@@ -63,12 +76,6 @@
             <button mat-icon-button (click)="viewCustomer(customer.customerId)">
               <mat-icon>visibility</mat-icon>
             </button>
-            <!-- <button mat-icon-button (click)="editCustomer(customer.customerId)">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-icon-button (click)="confirmDeleteCustomer(customer.customerId)">
-              <mat-icon>delete</mat-icon>
-            </button> -->
           </td>
         </ng-container>
 

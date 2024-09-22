@@ -19,14 +19,13 @@ h6 {
 }
 
 mat-select {
-  max-height: 48px; /* Sesuaikan dengan keperluan Anda */
-  line-height: 48px;
+  max-height: 48px; 
   padding: 0;
 }
 
 .mat-select-panel {
-  max-height: 200px; /* Atur sesuai kebutuhan */
-  overflow-y: auto; /* Tambahkan scrollbar di dropdown jika terlalu banyak item */
+  max-height: 200px; 
+  overflow-y: auto; 
 }
 
 .mat-select-trigger {

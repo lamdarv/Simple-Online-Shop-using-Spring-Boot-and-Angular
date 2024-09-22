@@ -20,6 +20,12 @@ h6 {
   margin: 20px;
 }
 
+.scrollable-content {
+  max-height: 400px; 
+  overflow-y: auto;
+  padding-right: 10px; 
+}
+
 mat-form-field {
   display: block;
   margin-bottom: 16px;
@@ -70,3 +76,15 @@ mat-checkbox {
   cursor: pointer;
 }
 
+.image-preview {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.preview-img {
+  max-width: 150px;
+  max-height: 150px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}

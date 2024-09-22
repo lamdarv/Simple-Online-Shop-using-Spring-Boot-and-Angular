@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CustomerService } from '../../../core/services/customer.service';
 import { Customer } from '../../../models/customer.model';
@@ -43,19 +43,31 @@ export class CustomerViewComponent implements OnInit {
     private route: ActivatedRoute,
     private customerService: CustomerService,
     public dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private cdRef: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
     const customerId = this.route.snapshot.paramMap.get('id');
     if (customerId) {
       this.customerService.getCustomerById(+customerId).subscribe((response: any) => {
-        this.customer = response.data;
+        this.customer = {
+          ...response.data,
+          lastOrderDateConverted: response.data.lastOrderDate ? this.convertToDate(response.data.lastOrderDate) : undefined
+        };
+
+        this.cdRef.detectChanges(); // Ensure view is updated after data change
       });
     }
   }
 
-  
+  convertToDate(dateArray: number[]): Date {
+    if (Array.isArray(dateArray) && dateArray.length >= 5) {
+      const [year, month, day, hour, minute] = dateArray;
+      return new Date(year, month - 1, day, hour, minute);
+    }
+    return new Date(); // Handle invalid date arrays
+  }
 
   goBack(): void {
     window.history.back();
@@ -69,6 +81,28 @@ export class CustomerViewComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        // Re-fetch the customer details after update
+        this.customerService.getCustomerById(customerId).subscribe({
+          next: (response: any) => {
+            this.customer = response.data;
+            // Show success message
+            this.snackBar.open('Customer updated successfully.', 'Close', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top'
+            });
+          },
+          error: (error) => {
+            // Show error message
+            this.snackBar.open('Error updating customer. Please try again.', 'Close', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top'
+            });
+          }
+        });
+
+        // Update the dataSource
         const index = this.dataSource.data.findIndex(c => c.customerId === customerId);
         if (index !== -1) {
           this.dataSource.data[index] = result.data;
@@ -88,15 +122,27 @@ export class CustomerViewComponent implements OnInit {
       if (result) {
         this.customerService.deleteCustomer(customerId).subscribe({
           next: () => {
+            // Show success message and navigate back
+            this.snackBar.open('Customer deleted successfully.', 'Close', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top'
+            });
             this.goBack();
           },
           error: (error) => {
-            console.error('Error deleting customer:', error);
+            // Show error message
+            this.snackBar.open('Error deleting customer. Please try again.', 'Close', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top'
+            });
           }
         });
       }
     });
   }
+
 
   downloadReportByCustomerId(customerId: number): void {
     this.customerService.downloadReportByCustomerId(customerId).subscribe({
@@ -104,32 +150,32 @@ export class CustomerViewComponent implements OnInit {
         // Jika sukses, unduh file PDF
         const fileName = `order_${customerId}_report.pdf`;
         saveAs(blob, fileName);
-        this.snackBar.open('Report downloaded successfully.', 'Close', { 
+        this.snackBar.open('Report downloaded successfully.', 'Close', {
           duration: 3000,
-          horizontalPosition: 'center',  
-          verticalPosition: 'top' 
+          horizontalPosition: 'center',
+          verticalPosition: 'top'
         });
       },
       error: (error: HttpErrorResponse) => {
         if (error.status === 404) {
           // Ambil pesan error dari header
           const errorMessage = error.headers.get('Error-Message') || 'Customer has no orders.';
-          this.snackBar.open(errorMessage, 'Close', { 
+          this.snackBar.open(errorMessage, 'Close', {
             duration: 3000,
-            horizontalPosition: 'center',  
-            verticalPosition: 'top' 
+            horizontalPosition: 'center',
+            verticalPosition: 'top'
           });
         } else {
-          console.error('Error downloading order report:', error);
-          this.snackBar.open('An error occurred while downloading the report.', 'Close', { 
+          // console.error('Error downloading order report:', error);
+          this.snackBar.open('An error occurred while downloading the report.', 'Close', {
             duration: 3000,
-            horizontalPosition: 'center',  
-            verticalPosition: 'top' 
+            horizontalPosition: 'center',
+            verticalPosition: 'top'
           });
         }
       }
     });
-}
+  }
 
 
 }

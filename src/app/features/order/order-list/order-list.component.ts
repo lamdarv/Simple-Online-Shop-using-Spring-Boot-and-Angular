@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import { CommonResponseDTO } from '../../../models/common-response-dto.model';
 import { OrderCreateComponent } from '../order-add/order-add.component';
 import { saveAs } from 'file-saver';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -50,7 +51,8 @@ export class OrderListComponent implements OnInit {
     private orderService: OrderService,
     private router: Router,
     public dialog: MatDialog,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -146,9 +148,19 @@ export class OrderListComponent implements OnInit {
       next: (blob) => {
         const fileName = `all_orders_report.pdf`; 
         saveAs(blob, fileName);
+        this.snackBar.open('Report downloaded successfully.', 'Close', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top'
+        });
       },
       error: (error) => {
-        console.error('Error downloading all orders report:', error);
+        // console.error('Error downloading all orders report:', error);
+        this.snackBar.open('An error occurred while downloading the report.', 'Close', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top'
+        });
       }
     });
   }
