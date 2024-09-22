@@ -33,4 +33,7 @@ public class Customer {
 
     @Column(name = "pic", length = 100)
     private String pic;
+
+    @Column(name = "url_pic", length = 1000)
+    private String urlPic;
 }

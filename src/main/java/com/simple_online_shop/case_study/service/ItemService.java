@@ -91,6 +91,8 @@ public class ItemService {
 
                 // Convert to LocalDateTime
                 itemDTO.setLastReStock(zonedDateTime.toLocalDateTime());
+                System.out.println("Received lastReStock: " + lastReStock);
+
             }
         } catch (DateTimeParseException e) {
             System.out.println("Error parsing date: " + e.getMessage());

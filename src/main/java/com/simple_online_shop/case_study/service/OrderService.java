@@ -58,6 +58,10 @@ public class OrderService {
         }
         itemRepository.save(item);
 
+        // Update the customer's last order date
+        customer.setLastOrderDate(LocalDateTime.now());
+        customerRepository.save(customer);
+
         Order savedOrder = orderRepository.save(order);
         return modelMapper.map(savedOrder, OrderDTO.class);
     }

@@ -85,6 +85,9 @@ public class CustomerService {
             String imageFilename = constructFileName(customer.getCustomerName(), file.getOriginalFilename());
             minioSrvc.upload(file, "simple-online-shop", o -> MinioSrvc.UploadOption.builder().filename(imageFilename).build());
             customer.setPic(imageFilename);
+
+            String imageUrl = minioSrvc.getLink("simple-online-shop", imageFilename, 432000L); // 5 days expiry time
+            customer.setUrlPic(imageUrl);
         }
 
         Customer updatedCustomer = customerRepository.save(customer);

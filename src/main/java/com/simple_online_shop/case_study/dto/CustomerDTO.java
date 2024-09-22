@@ -13,4 +13,5 @@ public class CustomerDTO {
     private Boolean isActive;
     private LocalDateTime lastOrderDate;
     private String pic;
+    private String urlPic;
 }
