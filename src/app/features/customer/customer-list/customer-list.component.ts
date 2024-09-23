@@ -91,9 +91,9 @@ export class CustomerListComponent implements OnInit {
 
   setDisplayedColumns() {
     if (this.isVerySmallScreen) {
-      this.displayedColumns = ['customerId', 'customerCode', 'actions'];
+      this.displayedColumns = ['customerId', 'customerName', 'actions'];
     } else if (this.isSmallScreen) {
-      this.displayedColumns = ['customerId', 'customerCode', 'isActive', 'actions'];
+      this.displayedColumns = ['customerId', 'customerName', 'isActive', 'actions'];
     } else if (this.isMediumScreen) {
       this.displayedColumns = ['customerId', 'customerName', 'customerAddress', 'customerCode', 'isActive', 'actions'];
     } else {
