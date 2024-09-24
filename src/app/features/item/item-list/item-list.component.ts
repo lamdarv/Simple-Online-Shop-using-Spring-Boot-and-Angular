@@ -51,11 +51,27 @@ export class ItemListComponent implements OnInit {
   ngOnInit(): void {
     this.itemService.getItems().subscribe((response: any) => {
       this.dataSource.data = response.data;
+
+      // Set custom filter predicate
+      this.dataSource.filterPredicate = (data: Item, filter: string) => {
+        return data.itemsName.toLowerCase().includes(filter);
+      };
+
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+
     });
     this.updateScreenSize();
     window.addEventListener('resize', this.updateScreenSize.bind(this));
+  }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   @HostListener('window:resize', ['$event'])

@@ -69,6 +69,12 @@ export class OrderListComponent implements OnInit {
 
           // Set the dataSource with the converted data
           this.dataSource.data = ordersWithConvertedDate;
+          // Set custom filter predicate
+          this.dataSource.filterPredicate = (data: Order, filter: string) => {
+            const order = data as any;  // Cast to any to bypass type checking
+            return order.customerName.toLowerCase().includes(filter.toLowerCase());
+          };
+          
         } else {
           console.warn('No orders data received');
           this.dataSource.data = [];
@@ -85,6 +91,15 @@ export class OrderListComponent implements OnInit {
 
     this.updateScreenSize();
     window.addEventListener('resize', this.updateScreenSize.bind(this));
+  }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   @HostListener('window:resize', ['$event'])
@@ -116,11 +131,11 @@ export class OrderListComponent implements OnInit {
       const [year, month, day, hour, minute] = dateArray;
       return new Date(year, month - 1, day, hour, minute);
     }
-    return new Date(); 
+    return new Date();
   }
 
   openCreateOrderDialog(): void {
-    console.log("Opening dialog"); 
+    console.log("Opening dialog");
     const dialogRef = this.dialog.open(OrderCreateComponent, {
       width: '300px'
     });
@@ -146,7 +161,7 @@ export class OrderListComponent implements OnInit {
   downloadAllReports(): void {
     this.orderService.downloadAllReports().subscribe({
       next: (blob) => {
-        const fileName = `all_orders_report.pdf`; 
+        const fileName = `all_orders_report.pdf`;
         saveAs(blob, fileName);
         this.snackBar.open('Report downloaded successfully.', 'Close', {
           duration: 3000,

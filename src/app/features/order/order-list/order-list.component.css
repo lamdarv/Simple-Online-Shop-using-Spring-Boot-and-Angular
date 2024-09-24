@@ -52,6 +52,23 @@ mat-card-title {
   word-break: break-all !important;
 }
 
+.search-container {
+  padding: 10px;
+  text-align: left;
+}
+
+.search-input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px 15px;
+  width: 250px;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #666;
+}
+
 @media (max-width: 800px) {
   td.cdk-column-actions button {
     margin: 8px;

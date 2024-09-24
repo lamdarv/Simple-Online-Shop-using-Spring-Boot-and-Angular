@@ -39,6 +39,7 @@ import { CommonResponseDTO } from '../../../models/common-response-dto.model';
 export class CustomerListComponent implements OnInit {
   displayedColumns: string[] = [];
   dataSource = new MatTableDataSource<Customer>();
+  filteredCustomerList: Customer[] = [];
 
   isMediumScreen: boolean = false;
   isSmallScreen: boolean = false;
@@ -60,6 +61,12 @@ export class CustomerListComponent implements OnInit {
 
         // Set the dataSource with the converted data
         this.dataSource.data = customersWithConvertedDate;
+        this.filteredCustomerList = this.dataSource.data;
+
+        // Set custom filter predicate
+        this.dataSource.filterPredicate = (data: Customer, filter: string) => {
+          return data.customerName.toLowerCase().includes(filter);
+        };
       }
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -67,6 +74,15 @@ export class CustomerListComponent implements OnInit {
 
     this.updateScreenSize();
     window.addEventListener('resize', this.updateScreenSize.bind(this));
+  }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   convertToDate(dateArray: number[]): Date {

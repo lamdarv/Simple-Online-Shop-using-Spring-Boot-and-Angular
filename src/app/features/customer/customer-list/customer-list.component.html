@@ -8,6 +8,9 @@
       </mat-card-actions>
     </mat-card-header>
     <mat-card-content>
+      <div class="search-container">
+        <input type="text" placeholder="Enter customer name" (keyup)="applyFilter($event)" class="search-input">
+      </div>
       <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 responsive-table tableCustomer">
         <!-- ID Column -->
         <ng-container matColumnDef="customerId">
@@ -59,7 +62,7 @@
               {{ customer.isActive ? 'Yes' : 'No' }}
             </span>
           </td>
-        </ng-container>        
+        </ng-container>
 
         <!-- Last Order Date Column -->
         <ng-container matColumnDef="lastOrderDateConverted">

@@ -12,9 +12,10 @@
                 </button>
             </mat-card-actions>
         </mat-card-header>
-
-
         <mat-card-content>
+            <div class="search-container">
+                <input type="text" placeholder="Enter customer name" (keyup)="applyFilter($event)" class="search-input">
+            </div>
             <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 responsive-table tableOrder">
                 <!-- Order ID Column -->
                 <ng-container matColumnDef="orderId">
