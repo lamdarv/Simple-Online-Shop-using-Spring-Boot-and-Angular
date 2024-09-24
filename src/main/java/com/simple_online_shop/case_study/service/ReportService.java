@@ -6,6 +6,9 @@ import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +33,7 @@ public class ReportService {
             return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
         }
 
-        return generateReport(orders, "CustomerOrderSummary_" + customerId + ".pdf");
+        return generateReport(orders, "CustomerOrderSummary_" + customerId + ".pdf", "reports/SimpleOnlineShop.jrxml");
     }
 
 
@@ -42,10 +45,10 @@ public class ReportService {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return generateReport(Collections.singletonList(order.get()), "OrderSummary_" + orderId + ".pdf");
+        return generateReport(Collections.singletonList(order.get()), "OrderSummary_" + orderId + ".pdf", "reports/SimpleOnlineShop.jrxml");
     }
 
-    // Metode baru untuk generate report semua order
+    // Metode untuk generate report semua order
     public ResponseEntity<byte[]> generateAllOrdersReport() {
         List<Order> orders = orderRepository.findAll();
 
@@ -53,12 +56,24 @@ public class ReportService {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return generateReport(orders, "AllOrdersSummary.pdf");
+        return generateReport(orders, "AllOrdersSummary.pdf", "reports/SimpleOnlineShop.jrxml");
     }
 
-    // Helper method untuk generate report
-    private ResponseEntity<byte[]> generateReport(List<Order> orders, String fileName) {
-        try (InputStream reportStream = new ClassPathResource("reports/SimpleOnlineShop.jrxml").getInputStream()) {
+    // Metode untuk generate report berdasarkan pagination
+    public ResponseEntity<byte[]> generateAllOrdersReportByPagination(int pageIndex, int pageSize) {
+        Pageable pageable = PageRequest.of(pageIndex, pageSize);
+        Page<Order> page = orderRepository.findAll(pageable);
+
+        if (!page.hasContent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return generateReport(page.getContent(), "OrdersSummary.pdf", "reports/SimpleOnlineShopList.jrxml");
+    }
+
+    // Combined helper method for generating reports
+    private ResponseEntity<byte[]> generateReport(List<Order> orders, String fileName, String reportTemplatePath) {
+        try (InputStream reportStream = new ClassPathResource(reportTemplatePath).getInputStream()) {
             JasperReport jasperReport = JasperCompileManager.compileReport(reportStream);
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(orders);
             Map<String, Object> parameters = new HashMap<>();
@@ -78,5 +93,6 @@ public class ReportService {
         }
     }
 }
+
 
 

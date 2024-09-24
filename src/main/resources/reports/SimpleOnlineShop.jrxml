@@ -71,7 +71,7 @@
 				<text><![CDATA[Order Code]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="445" y="159" width="99" height="20" forecolor="#000000" uuid="39bdf821-b462-49a9-be79-50a2b96e008f"/>
+				<reportElement style="Column header" x="480" y="159" width="99" height="20" forecolor="#000000" uuid="39bdf821-b462-49a9-be79-50a2b96e008f"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12" isBold="false"/>
 				</textElement>
@@ -85,11 +85,12 @@
 				<textFieldExpression><![CDATA[$F{orderCode}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Column header" x="445" y="179" width="99" height="20" forecolor="#000000" uuid="4f738ea5-78cf-49b7-8621-6650d57c2a93"/>
+				<reportElement style="Column header" x="480" y="179" width="99" height="20" forecolor="#000000" uuid="4f738ea5-78cf-49b7-8621-6650d57c2a93"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{orderDate} != null ? new java.text.SimpleDateFormat("dd MMMM yyyy").format(java.sql.Timestamp.valueOf($F{orderDate})) : ""]]></textFieldExpression>
+<!--				<textFieldExpression><![CDATA[$F{orderDate} != null ? new java.text.SimpleDateFormat("dd MMMM yyyy").format(java.sql.Timestamp.valueOf($F{orderDate})) : ""]]></textFieldExpression>-->
+				<textFieldExpression><![CDATA[$F{orderDate} != null ? new java.text.SimpleDateFormat("yyyy-MM-dd").format(java.sql.Timestamp.valueOf($F{orderDate})) : ""]]></textFieldExpression>
 			</textField>
 			<rectangle>
 				<reportElement x="10" y="209" width="534" height="1" backcolor="#C2C2C2" uuid="7fb4800e-cb6c-469c-a8cc-0f4706b13f3b">

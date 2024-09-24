@@ -6,17 +6,13 @@ import com.simple_online_shop.case_study.exception.ResourceNotFoundException;
 import com.simple_online_shop.case_study.model.Customer;
 import com.simple_online_shop.case_study.repository.CustomerRepository;
 import com.simple_online_shop.case_study.repository.OrderRepository;
-import io.minio.ObjectWriteResponse;
 import lib.minio.MinioSrvc;
-import lib.minio.configuration.property.MinioProp;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;

@@ -4,10 +4,7 @@ import com.simple_online_shop.case_study.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/report")
@@ -46,6 +43,19 @@ public class ReportController {
     public ResponseEntity<byte[]> downloadAllOrdersReport() {
         try {
             ResponseEntity<byte[]> response = reportService.generateAllOrdersReport();
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/reports")
+    public ResponseEntity<byte[]> generateAllOrdersReportByPagination(
+            @RequestParam("pageIndex") int pageIndex,
+            @RequestParam("pageSize") int pageSize) {
+        try {
+            ResponseEntity<byte[]> response = reportService.generateAllOrdersReportByPagination(pageIndex, pageSize);
             return response;
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,11 +1,9 @@
 package com.simple_online_shop.case_study.service;
 
-import com.simple_online_shop.case_study.dto.CustomerDTO;
 import com.simple_online_shop.case_study.dto.ItemDTO;
 import com.simple_online_shop.case_study.exception.CustomerDeletionException;
 import com.simple_online_shop.case_study.exception.ItemDeletionException;
 import com.simple_online_shop.case_study.exception.ResourceNotFoundException;
-import com.simple_online_shop.case_study.model.Customer;
 import com.simple_online_shop.case_study.model.Item;
 import com.simple_online_shop.case_study.repository.ItemRepository;
 import com.simple_online_shop.case_study.repository.OrderRepository;
@@ -14,10 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;

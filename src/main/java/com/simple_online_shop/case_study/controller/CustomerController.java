@@ -36,7 +36,7 @@ public class CustomerController {
         try {
             CustomerDTO customerDTO = customerService.createCustomer(file, customerName,
                     customerAddress, customerCode, customerPhone, isActive, lastOrderDate);
-            CommonResponseDTO<CustomerDTO> response = new CommonResponseDTO<>("Item created successfully", customerDTO);
+            CommonResponseDTO<CustomerDTO> response = new CommonResponseDTO<>("Customer created successfully", customerDTO);
             return ResponseEntity.ok(response);
         } catch (ResourceNotFoundException e) {
             CommonResponseDTO<CustomerDTO> response = new CommonResponseDTO<>(e.getMessage(), null);
@@ -62,7 +62,7 @@ public class CustomerController {
         try {
             CustomerDTO customerDTO = customerService.updateCustomer(customerId, file, customerName,
                     customerAddress, customerCode, customerPhone, isActive, lastOrderDate);
-            CommonResponseDTO<CustomerDTO> response = new CommonResponseDTO<>("Item updating successfully", customerDTO);
+            CommonResponseDTO<CustomerDTO> response = new CommonResponseDTO<>("Customer updating successfully", customerDTO);
             return ResponseEntity.ok(response);
         } catch (ResourceNotFoundException e) {
             CommonResponseDTO<CustomerDTO> response = new CommonResponseDTO<>(e.getMessage(), null);
