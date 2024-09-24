@@ -159,9 +159,12 @@ export class OrderListComponent implements OnInit {
   }
 
   downloadAllReports(): void {
-    this.orderService.downloadAllReports().subscribe({
+    const pageIndex = this.paginator.pageIndex;  // Get the current page index from the paginator
+    const pageSize = this.paginator.pageSize;    // Get the page size from the paginator
+
+    this.orderService.downloadAllReports(pageIndex, pageSize).subscribe({
       next: (blob) => {
-        const fileName = `all_orders_report.pdf`;
+        const fileName = `paginated_orders_report.pdf`;
         saveAs(blob, fileName);
         this.snackBar.open('Report downloaded successfully.', 'Close', {
           duration: 3000,
@@ -170,7 +173,7 @@ export class OrderListComponent implements OnInit {
         });
       },
       error: (error) => {
-        // console.error('Error downloading all orders report:', error);
+        console.error('Error downloading all orders report:', error);
         this.snackBar.open('An error occurred while downloading the report.', 'Close', {
           duration: 3000,
           horizontalPosition: 'center',

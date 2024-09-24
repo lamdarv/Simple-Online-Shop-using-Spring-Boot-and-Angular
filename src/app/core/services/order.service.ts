@@ -48,13 +48,18 @@ export class OrderService {
   // 'blob' digunakan untuk mendownload file
   downloadReportByOrderId(orderId: number): Observable<Blob> {
     const url = `http://localhost:8081/api/report/order/${orderId}`;
-    return this.http.get(url, { responseType: 'blob' }); 
-  }
-
-  downloadAllReports(): Observable<Blob> {
-    const url = `http://localhost:8081/api/report/all-reports`;
     return this.http.get(url, { responseType: 'blob' });
   }
-  
-  
+
+  downloadAllReports(pageIndex: number, pageSize: number): Observable<Blob> {
+    const url = `http://localhost:8081/api/report/reports`;
+    const params = new HttpParams()
+      .set('pageIndex', pageIndex.toString())
+      .set('pageSize', pageSize.toString());
+
+    return this.http.get(url, {
+      params: params,
+      responseType: 'blob'
+    });
+  }
 }
